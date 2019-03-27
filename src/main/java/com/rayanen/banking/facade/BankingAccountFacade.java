@@ -9,9 +9,10 @@ import com.rayanen.banking.service.MapperClass;
 
 public class BankingAccountFacade {
 
-    public void saveNewLegalCustomer(LegalCustomerDto legalCustomerDto){
+    public ResponseDto<String> saveNewLegalCustomer(LegalCustomerDto legalCustomerDto){
         BankingService bankingService=new BankingService();
-       bankingService.saveLegalCustomer((LegalCustomer) MapperClass.mapper(new LegalCustomer(), legalCustomerDto)) ;
+       return bankingService.saveLegalCustomer((LegalCustomer) MapperClass.mapper(new LegalCustomer(), legalCustomerDto)) ;
+
 
     }
     public void saveNewRealCustomer(RealCustomerDto realCustomerDto){

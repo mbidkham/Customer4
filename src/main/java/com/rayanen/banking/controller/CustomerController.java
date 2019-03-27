@@ -77,7 +77,7 @@ public class CustomerController {
 
         BankingAccountFacade bankingAccountFacade =  new BankingAccountFacade();
         bankingAccountFacade.saveNewLegalCustomer(legalCustomerDto);
-        return new ResponseDto<>(ResponseStatus.Ok, null, "با موفقیت ذخیره شد !", null);
+        return bankingAccountFacade.saveNewLegalCustomer(legalCustomerDto);
 
 
 

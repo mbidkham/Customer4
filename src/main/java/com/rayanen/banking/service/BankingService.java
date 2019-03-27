@@ -17,11 +17,16 @@ public class BankingService {
     private RealCustomerDao realCustomerDao;
     private SavingAccountDao savingAccountDao;
 
-    public BankingService(LegalCustomerDao legalCustomerDao , RealCustomerDao realCustomerDao , SavingAccountDao savingAccountDao){
-     this.legalCustomerDao = legalCustomerDao;
-     this.realCustomerDao = realCustomerDao;
-     this.savingAccountDao = savingAccountDao;
+    public BankingService(LegalCustomerDao legalCustomerDao , RealCustomerDao realCustomerDao , SavingAccountDao savingAccountDao ){
+        this.legalCustomerDao = legalCustomerDao;
+        this.realCustomerDao = realCustomerDao;
+       this. savingAccountDao = savingAccountDao;
     }
+
+    public BankingService(){
+
+    }
+
 
     public ResponseDto<String> saveLegalCustomer(LegalCustomer legalCustomer) {
 
