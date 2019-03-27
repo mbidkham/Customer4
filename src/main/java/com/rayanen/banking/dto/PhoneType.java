@@ -1,0 +1,18 @@
+package com.rayanen.banking.dto;
+
+public enum PhoneType {
+            MOBILE("همراه"), TEL("ثابت");
+    private String value;
+
+    PhoneType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+}

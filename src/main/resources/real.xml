@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<page title="  ثبت کاربر حقیقی ">
+
+    <section title="مشخصات کاربر ">
+        <input label="نام :" type="text" value="obj.name"/>
+        <input label="نام خانوادگی  :" type="text" value="obj.lastName"/>
+        <input label="کد ملی  :" type="text" value="obj.nationalCode"/>
+        <section title="آدرس :">
+            <input label="استان :" type="text" value="obj.address.province"/>
+            <input label="شهر :" type="text" value="obj.address.city"/>
+            <input label="خیابان :" type="text" value="obj.address.street"/>
+            <input label="کد پستی :" type="text" value="obj.address.postalCode"/>
+        </section>
+        <section label = "تماس">
+            <input label="ایمیل :" type="text" value="obj.contact.email" disable="true"/>
+            <table label="تلفن " value="obj.contact.tel">
+                <input label="تلفن " type="text" value="number" disable="true"/>
+                <comboBox label="نوع " value="type" disable="true">
+                    <comboItem itemLabel="ثابت " itemValue="MOBILE"/>
+                    <comboItem itemLabel="همراه " itemValue="HOME"/>
+
+                </comboBox>
+            </table>
+        </section>
+        <actions>
+            <button label="تایید">
+                <webService address="ws/saveRealCustomer" clearPageOnSuccess="true" >
+                    <webServiceInputObject name="obj"/>
+                </webService>
+            </button>
+        </actions>
+    </section>
+</page>
