@@ -2,28 +2,10 @@ package com.rayanen.banking.dto;
 
 public  class CustomerDto {
 
-
-
     private String name;
-    private String customerId;
     private AddressDto address;
 
 
-    public CustomerDto(String name, AddressDto address) {
-        this.name = name;
-        this.address = address;
-    }
-
-    public CustomerDto() {
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-    }
 
 
     public String getName() {

@@ -3,18 +3,8 @@ package com.rayanen.banking.dto;
 public class LegalCustomerDto extends CustomerDto {
 
     private String legalCode;
-    private  String tel;
+    private  String phone;
 
-    public LegalCustomerDto(String name, AddressDto address, String legalCode, String tel) {
-
-        super(name,address);
-        this.legalCode = legalCode;
-        this.tel = tel;
-    }
-
-    public LegalCustomerDto() {
-
-    }
 
     public String getLegalCode() {
         return legalCode;
@@ -24,11 +14,11 @@ public class LegalCustomerDto extends CustomerDto {
         this.legalCode = legalCode;
     }
 
-    public String getTel() {
-        return tel;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTel(String tel) {
-        this.tel=tel;
+    public void setPhone(String phone) {
+        this.phone=phone;
     }
 }

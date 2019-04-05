@@ -8,10 +8,7 @@ public class SearchDto {
         return code;
     }
 
-    public SearchDto (Object code) {
+    public void setCode(Object code) {
         this.code = code;
-
     }
-
-
 }

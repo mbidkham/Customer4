@@ -12,17 +12,14 @@ public class LegalCustomer extends Customer {
     @Column(unique = true)
     private String legalCode;
 
-    private String tel;
+    private String phone;
 
-
-
-
-    public String getTel() {
-        return tel;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
 

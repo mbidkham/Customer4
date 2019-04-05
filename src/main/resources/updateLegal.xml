@@ -3,12 +3,10 @@
 <page title="ویرایش ">
     <section title="جستجو ">
         <search label="کد ثبت ارگان / شرکت:"
-                singleResultSearch="ws/updateLegal"
+                singleResultSearch="ws/searchLegal"
                 singleResultSearchInputkey="legalCode"
                 selectedResultKey="legalCode"
                 value="obj">
-
-
 
         </search>
     </section>
@@ -27,7 +25,7 @@
         </section>
         <actions>
             <button label="تایید">
-                <webService address="ws/saveLegalCustomer" clearPageOnSuccess="true">
+                <webService address="ws/updateLegal" clearPageOnSuccess="true">
                     <webServiceInputObject name="obj"/>
                 </webService>
             </button>

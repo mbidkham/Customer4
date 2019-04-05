@@ -20,21 +20,14 @@ public class SavingAccount {
     private List<Transaction> transactions;
 
     private Integer accountNumber;
+
     private BigDecimal balance = new BigDecimal(5000) ;
-    private BigDecimal amount;
+
     private BigDecimal minBalance=balance;
+
     private BigDecimal sumOfMinBalances = new BigDecimal(0);
+
     private BigDecimal monthlyProfit = new BigDecimal(0);
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-
 
 
     public BigDecimal getSumOfMinBalances() {

@@ -7,29 +7,18 @@ import java.util.List;
 
 public class SavingAccountDto {
 
-
-    private Integer id;
-
-    private Integer version;
-
-
     private List<Transaction> transactions;
 
     private Integer accountNumber;
+
     private BigDecimal balance = new BigDecimal(5000) ;
-    private BigDecimal amount;
+
+
     private BigDecimal minBalance=balance;
+
     private BigDecimal sumOfMinBalances = new BigDecimal(0);
+
     private BigDecimal monthlyProfit = new BigDecimal(0);
-
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
 
 
 
@@ -41,23 +30,6 @@ public class SavingAccountDto {
         this.sumOfMinBalances = sumOfMinBalances;
     }
 
-
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 
     public BigDecimal getBalance() {
         return balance;

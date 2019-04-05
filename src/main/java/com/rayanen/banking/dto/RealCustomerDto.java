@@ -1,5 +1,7 @@
 package com.rayanen.banking.dto;
 
+import java.util.List;
+
 public class RealCustomerDto extends CustomerDto {
 
 
@@ -7,20 +9,6 @@ public class RealCustomerDto extends CustomerDto {
     private String nationalCode;
     private ContactDto contactDto;
 
-
-    public RealCustomerDto(String name, String lastName, String nationalCode, ContactDto contactDto, AddressDto address){
-
-        super(name,address);
-        this.lastName=lastName;
-        this.nationalCode=nationalCode;
-        this.contactDto = contactDto;
-
-
-    }
-
-    public RealCustomerDto() {
-
-        }
 
     public String getLastName() {
         return lastName;

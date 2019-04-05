@@ -1,21 +1,13 @@
 package com.rayanen.banking.dto;
 
 public class AddressDto {
+
+
     private String street;
     private String city;
     private String province;
     private String postalCode;
 
-
-    public AddressDto(String street, String city, String province, String postalCode) {
-        this.street = street;
-        this.city = city;
-        this.province = province;
-        this.postalCode = postalCode;
-    }
-
-    public AddressDto() {
-    }
 
     public void setStreet(String street) {
         this.street = street;

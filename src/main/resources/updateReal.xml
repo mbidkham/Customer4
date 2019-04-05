@@ -34,7 +34,7 @@
         <input label="ایمیل :" type="text" value="obj.contact.email" />
         <actions>
             <button label="تایید">
-                <webService address="ws/saveRealCustomer" clearPageOnSuccess="true">
+                <webService address="ws/updateReal" clearPageOnSuccess="true">
                     <webServiceInputObject name="obj"/>
                 </webService>
             </button>

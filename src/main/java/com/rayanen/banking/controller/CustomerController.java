@@ -4,17 +4,15 @@ package com.rayanen.banking.controller;
 import com.rayanen.banking.dto.*;
 import com.rayanen.banking.dto.ResponseStatus;
 import com.rayanen.banking.facade.BankingAccountFacade;
-import com.rayanen.banking.model.dao.LegalCustomerDao;
-import com.rayanen.banking.model.dao.RealCustomerDao;
-import com.rayanen.banking.model.dao.SavingAccountDao;
+import com.rayanen.banking.facade.facadeImpl.BankingAccountFacadeImpl;
 import com.rayanen.banking.model.entity.LegalCustomer;
 import com.rayanen.banking.model.entity.RealCustomer;
-import com.rayanen.banking.model.entity.SavingAccount;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.TransactionRequiredException;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
@@ -27,7 +25,14 @@ import java.util.*;
 @RestController
 public class CustomerController {
 
-    private static Logger logger = LoggerFactory.getLogger(CustomerController.class);
+    private BankingAccountFacade bankingAccountFacade;
+
+    public CustomerController( BankingAccountFacade bankingAccountFacade){
+
+        this.bankingAccountFacade = bankingAccountFacade;
+
+    }
+
 
 
     @RequestMapping(value = "/ws/menu/getUserMenu", method = RequestMethod.POST)
@@ -73,10 +78,8 @@ public class CustomerController {
 
     @RequestMapping(value = "/ws/saveLegalCustomer", method = RequestMethod.POST)
     @Transactional(rollbackOn = Exception.class)
-    public ResponseDto<String> saveLegalCustomer(@Valid @RequestBody LegalCustomerDto legalCustomerDto) {
+    public ResponseDto<String> saveLegalCustomer( @RequestBody LegalCustomerDto legalCustomerDto) {
 
-        BankingAccountFacade bankingAccountFacade =  new BankingAccountFacade();
-        bankingAccountFacade.saveNewLegalCustomer(legalCustomerDto);
         return bankingAccountFacade.saveNewLegalCustomer(legalCustomerDto);
 
 
@@ -86,141 +89,101 @@ public class CustomerController {
 
     @RequestMapping(value = "/ws/saveRealCustomer", method = RequestMethod.POST)
     @Transactional(rollbackOn = Exception.class)
-    public ResponseDto<String> saveRealCustomer(@Valid @RequestBody RealCustomerDto realCustomerDto) {
+    public ResponseDto saveRealCustomer( @RequestBody RealCustomerDto realCustomerDto) {
 
 
-        BankingAccountFacade bankingAccountFacade =  new BankingAccountFacade();
-        bankingAccountFacade.saveNewRealCustomer(realCustomerDto);
-        return new ResponseDto<>(ResponseStatus.Ok, null, "با موفقیت ذخیره شد !", null);
-
-
+        return bankingAccountFacade.saveNewRealCustomer(realCustomerDto);
 
 
     }
 
 
     @RequestMapping(value = "/ws/searchLegal", method = RequestMethod.POST)
-    public ResponseDto<CustomerDto> searchLegal(@Valid @RequestParam SearchDto searchDto) {
+    public ResponseDto<CustomerDto> searchLegal(@RequestBody SearchDto  searchDto) {
 
-        BankingAccountFacade bankingAccountFacade =  new BankingAccountFacade();
-        bankingAccountFacade.searchLegal(searchDto);
-        return new ResponseDto<>(ResponseStatus.Ok, null, "با موفقیت ذخیره شد !", null);
-
+       return bankingAccountFacade.searchLegal(searchDto);
 
     }
 
 
     @RequestMapping(value = "/ws/searchReal", method = RequestMethod.POST)
-    public ResponseDto<CustomerDto> searchReal(@RequestParam SearchDto searchDto) {
+    public ResponseDto searchReal(@RequestBody SearchDto searchDto) {
 
+        return bankingAccountFacade.searchReal(searchDto);
 
-
-        BankingAccountFacade bankingAccountFacade =  new BankingAccountFacade();
-        bankingAccountFacade.searchReal(searchDto);
-        return new ResponseDto<>(ResponseStatus.Ok, null, "با موفقیت ذخیره شد !", null);
 
     }
 
     @RequestMapping(value = "/ws/advanceLegalSearch", method = RequestMethod.POST)
-    public ResponseDto<List<LegalCustomer>> advanceLegalSearch(@RequestParam AdvanceSearchDto advanceSearchDto) {
+    public ResponseDto advanceLegalSearch(@RequestBody AdvanceSearchDto advanceSearchDto) {
 
-        BankingAccountFacade bankingAccountFacade=new BankingAccountFacade();
-        bankingAccountFacade.advanceLegalSearch(advanceSearchDto);
-        return new ResponseDto<>(ResponseStatus.Ok, null, null, null);
+        return bankingAccountFacade.advanceLegalSearch(advanceSearchDto);
     }
 
     @RequestMapping(value = "/ws/advanceRealSearch", method = RequestMethod.POST)
-    public ResponseDto<List<RealCustomerDto>> advanceRealSearch(@RequestParam AdvanceSearchDto advanceSearchDto) {
+    public ResponseDto advanceRealSearch(@RequestBody AdvanceSearchDto advanceSearchDto) {
 
+       return bankingAccountFacade.advanceRealSearch(advanceSearchDto);
 
-        BankingAccountFacade bankingAccountFacade=new BankingAccountFacade();
-        bankingAccountFacade.advanceRealSearch(advanceSearchDto);
-        return new ResponseDto<>(ResponseStatus.Ok, null, null, null);
 
 
     }
 
     @RequestMapping(value = "/ws/updateLegal", method = RequestMethod.POST)
     @Transactional(rollbackOn = Exception.class)
-    public ResponseDto<RealCustomerDto> updateLegal(@RequestParam SearchDto searchDto) {
-
-        BankingAccountFacade bankingAccountFacade = new BankingAccountFacade();
-        bankingAccountFacade.updateLegal(searchDto);
+    public ResponseDto<RealCustomerDto> updateLegal(@RequestBody LegalCustomerDto legalCustomerDto) {
 
 
-            return new ResponseDto(ResponseStatus.Ok, null, null, null);
-
+       return bankingAccountFacade.updateLegal(legalCustomerDto);
 
 
     }
 
     @RequestMapping(value = "/ws/updateReal", method = RequestMethod.POST)
     @Transactional(rollbackOn = Exception.class)
-    public ResponseDto<RealCustomerDto> updateReal(@RequestParam SearchDto searchDto) {
+    public ResponseDto<RealCustomerDto> updateReal(@RequestBody RealCustomerDto realCustomerDto) {
 
-
-        BankingAccountFacade bankingAccountFacade = new BankingAccountFacade();
-        bankingAccountFacade.updateReal(searchDto);
-
-
-
-        return new ResponseDto(ResponseStatus.Ok, null, null, new ResponseException("موجود نیست !"));
+        return bankingAccountFacade.updateReal(realCustomerDto);
     }
 
 
     @RequestMapping(value = "/ws/savingAccountForReal", method = RequestMethod.POST)
 
-    public ResponseDto<RealCustomerDto> savingAccountForReal(@Valid @RequestBody RealCustomerDto realCustomerDto) {
+    public ResponseDto savingAccountForReal(@RequestBody SearchDto searchDto) {
 
-
-        BankingAccountFacade bankingAccountFacade = new BankingAccountFacade();
-        bankingAccountFacade.savingAccountForReal(realCustomerDto);
-        return new ResponseDto(ResponseStatus.Ok, null, "سپرده جدید برای شما ایجاد شد", null);
-
+        return bankingAccountFacade.savingAccountForReal(searchDto);
 
     }
 
     @RequestMapping(value = "/ws/savingAccountForLegal", method = RequestMethod.POST)
 
-    public ResponseDto<RealCustomerDto> savingAccountForLegal(@Valid @RequestBody LegalCustomerDto legalCustomerDto) {
+    public ResponseDto<RealCustomerDto> savingAccountForLegal( @RequestBody SearchDto searchDto) {
 
 
-        BankingAccountFacade bankingAccountFacade = new BankingAccountFacade();
-        bankingAccountFacade.savingAccountForLegal(legalCustomerDto);
-        return new ResponseDto(ResponseStatus.Ok, null, "سپرده جدید برای شما ایجاد شد :)", null);
+        return bankingAccountFacade.savingAccountForLegal(searchDto);
 
 
     }
 
     @RequestMapping(value = "/ws/searchByAccountNumber", method = RequestMethod.POST)
-    public ResponseDto<RealCustomerDto> searchByAccountNumber(@RequestParam SearchDto searchDto) {
+    public ResponseDto<RealCustomerDto> searchByAccountNumber(@RequestBody SearchDto searchDto) {
 
-        BankingAccountFacade bankingAccountFacade = new BankingAccountFacade();
-        bankingAccountFacade.searchByAccountNumber(searchDto);
-
-        return new ResponseDto(ResponseStatus.Ok, null, "واریز انجام شد ", null);
+        return bankingAccountFacade.searchByAccountNumber(searchDto);
     }
 
     @RequestMapping(value = "/ws/deposit", method = RequestMethod.POST)
     @Transactional
-    public ResponseDto<RealCustomerDto> deposit(@Valid @RequestBody SavingAccountDto savingAccountDto) {
+    public ResponseDto<RealCustomerDto> deposit(@RequestBody TransactionRequirementsDto transactionRequirementsDto) {
 
-        BankingAccountFacade bankingAccountFacade = new BankingAccountFacade();
-        bankingAccountFacade.deposit(savingAccountDto);
-
-        return new ResponseDto(ResponseStatus.Ok, null, "واریز انجام شد ", null);
-
+        return bankingAccountFacade.deposit(transactionRequirementsDto);
 
     }
 
     @RequestMapping(value = "/ws/withdrawal", method = RequestMethod.POST)
     @Transactional
-    public ResponseDto<RealCustomerDto> withdrawal(@Valid @RequestBody SavingAccountDto savingAccountDto) {
+    public ResponseDto<RealCustomerDto> withdrawal( @RequestBody TransactionRequirementsDto transactionRequirementsDto) {
 
-
-        BankingAccountFacade bankingAccountFacade = new BankingAccountFacade();
-        bankingAccountFacade.withdrawal(savingAccountDto);
-        return new ResponseDto(ResponseStatus.Ok, null, "برداشت  وجه با موفقیت انجام شد ", null);
+       return bankingAccountFacade.withdrawal(transactionRequirementsDto);
 
     }
 
@@ -228,11 +191,7 @@ public class CustomerController {
     @Transactional
     public ResponseDto<RealCustomerDto> transferMoney(@RequestBody TransferMoneyDto transferMoneyDto) {
 
-        BankingAccountFacade bankingAccountFacade = new BankingAccountFacade();
-        bankingAccountFacade.transferMoney(transferMoneyDto);
-
-        return new ResponseDto(ResponseStatus.Ok, null, "کاربر پیدا نشد ", null);
-
+       return bankingAccountFacade.transferMoney(transferMoneyDto);
 
     }
 
