@@ -1,5 +1,8 @@
 package com.rayanen.banking.dto;
 
+import com.rayanen.banking.model.entity.Phone;
+import com.rayanen.banking.utility.Annotations.MapTo;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -13,6 +16,7 @@ public class ContactDto {
 
     private String email;
 
+    @MapTo(targetEntity = Phone.class)
     private List<PhoneDto> phones;
 
     public Integer getId() {

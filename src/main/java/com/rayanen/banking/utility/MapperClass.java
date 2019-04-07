@@ -70,15 +70,18 @@ public class MapperClass {
 
                     break;
 
-                } else if (fieldName.getType().toString().contains("List")) {
+                } else if (fieldName.getType().toString().contains("List") && Objects.nonNull(fieldName.getDeclaredAnnotation(MapTo.class))) {
                     try {
+                        MapTo mapTo = fieldName.getAnnotation(MapTo.class);
+                        Class targetEntityClass = mapTo.targetEntity();
+                        Object mapToEntityObj = targetEntityClass.newInstance();
 
                         List invokedMethod = (ArrayList)dtoMethod.invoke(dtoObject);
                         List mappedDtoList = new ArrayList();
 
                         for (Object invokedList : invokedMethod) {
 
-                            mappedDtoList.add(MapperClass.dtoToEntityMapper(new Object() , invokedList));
+                            mappedDtoList.add(MapperClass.dtoToEntityMapper(mapToEntityObj , invokedList));
                         }
 
                         for (Method declaredEntityMethod : entityMethods) {
