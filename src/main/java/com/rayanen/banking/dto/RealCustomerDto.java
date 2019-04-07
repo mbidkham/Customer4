@@ -1,13 +1,19 @@
 package com.rayanen.banking.dto;
 
-import java.util.List;
+import com.rayanen.banking.utility.Annotations.MapTo;
+
+import javax.validation.constraints.NotNull;
 
 public class RealCustomerDto extends CustomerDto {
 
 
     private String lastName;
-    private String nationalCode;
-    private ContactDto contactDto;
+
+    @NotNull(message = "کد ملی  را وارد نکرده اید ")
+    private  String nationalCode;
+
+    @MapTo
+    private ContactDto contact;
 
 
     public String getLastName() {
@@ -28,12 +34,12 @@ public class RealCustomerDto extends CustomerDto {
 
     }
 
-    public ContactDto getContactDto() {
-        return contactDto;
+    public ContactDto getContact() {
+        return contact;
     }
 
-    public void setContactDto(ContactDto contactDto) {
-        this.contactDto = contactDto;
+    public void setContact(ContactDto contact) {
+        this.contact = contact;
 
     }
 }

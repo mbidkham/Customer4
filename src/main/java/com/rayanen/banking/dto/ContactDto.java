@@ -1,42 +1,51 @@
 package com.rayanen.banking.dto;
 
+import javax.persistence.*;
 import java.util.List;
 
 public class ContactDto {
+
+    @Id
+    private Integer id;
+
+    @Version
+    private Integer version;
+
     private String email;
-    private List<PhoneDto> tel;
 
+    private List<PhoneDto> phones;
 
-    public ContactDto(String mobile, List<PhoneDto> tel, String email) {
-        this.email = email;
-        this.tel=tel;
+    public Integer getId() {
+        return id;
     }
 
-    public ContactDto() {
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public List<PhoneDto> getTel() {
-        return tel;
+    public Integer getVersion() {
+        return version;
     }
 
-    public void setTel(List<PhoneDto> tel) {
-        this.tel = tel;
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
-
-
-    public void setMobile(String mobile) {
-        this.email = email;
-
-    }
-
-
-
-
-    public String getMobile() {
+    public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<PhoneDto> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<PhoneDto> phones) {
+        this.phones = phones;
+    }
 
 
 

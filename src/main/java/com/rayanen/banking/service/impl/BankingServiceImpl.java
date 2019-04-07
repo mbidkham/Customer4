@@ -162,7 +162,7 @@ public class BankingServiceImpl implements BankingService {
 
         LegalCustomer byLegalCode = legalCustomerDao.findByLegalCode(legalCustomerDto.getLegalCode());
 
-        legalCustomerDao.save((LegalCustomer) MapperClass.dtoToEntityMapper(legalCustomerDto , byLegalCode));
+        legalCustomerDao.save( MapperClass.dtoToEntityMapper(  byLegalCode , legalCustomerDto));
 
         return new ResponseDto(ResponseStatus.Ok, byLegalCode, "با موفقیت ویرایش شد !", null);
 
@@ -174,7 +174,7 @@ public class BankingServiceImpl implements BankingService {
 
         RealCustomer byReal = realCustomerDao.findByNationalCode( realCustomerDto.getNationalCode());
 
-        realCustomerDao.save((RealCustomer) MapperClass.dtoToEntityMapper(realCustomerDto , byReal));
+        realCustomerDao.save( MapperClass.dtoToEntityMapper(byReal , realCustomerDto ));
 
         return new ResponseDto(ResponseStatus.Ok, byReal, "با موفقیت ویرایش شد !",null);
 

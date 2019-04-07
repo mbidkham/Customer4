@@ -2,6 +2,8 @@ package com.rayanen.banking.model.entity;
 
 
 
+import com.rayanen.banking.utility.Annotations.MapTo;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -13,16 +15,26 @@ abstract public  class Customer {
     @Id
     @GeneratedValue
     private Integer id;
+    @Version
+    private Integer version;
 
     @NotNull(message = " اسم وارد کنید :")
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @MapTo
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<SavingAccount> savingAccounts;
 
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public List<SavingAccount> getSavingAccounts() {
         return savingAccounts;

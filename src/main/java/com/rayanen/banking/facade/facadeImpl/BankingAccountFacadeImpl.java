@@ -24,13 +24,13 @@ public class BankingAccountFacadeImpl implements BankingAccountFacade {
 
     public ResponseDto<String> saveNewLegalCustomer(LegalCustomerDto legalCustomerDto){
 
-       return bankingService.saveLegalCustomer((LegalCustomer) MapperClass.dtoToEntityMapper(new LegalCustomer(), legalCustomerDto)) ;
+       return bankingService.saveLegalCustomer( MapperClass.dtoToEntityMapper(new LegalCustomer(), legalCustomerDto)) ;
 
 
     }
     public ResponseDto<String> saveNewRealCustomer(RealCustomerDto realCustomerDto){
 
-        RealCustomer realCustomer = (RealCustomer) MapperClass.dtoToEntityMapper(new RealCustomer(), realCustomerDto);
+        RealCustomer realCustomer =  MapperClass.dtoToEntityMapper(new RealCustomer(), realCustomerDto);
 
         return bankingService.saveRealCustomer(realCustomer) ;
 

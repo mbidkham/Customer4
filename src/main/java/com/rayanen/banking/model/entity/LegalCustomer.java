@@ -2,6 +2,8 @@ package com.rayanen.banking.model.entity;
 
 
 
+import com.rayanen.banking.utility.Annotations.MapTo;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -12,6 +14,7 @@ public class LegalCustomer extends Customer {
     @Column(unique = true)
     private String legalCode;
 
+    @MapTo
     private String phone;
 
     public String getPhone() {
@@ -30,8 +33,6 @@ public class LegalCustomer extends Customer {
     public void setLegalCode(String legalCode) {
         this.legalCode = legalCode;
     }
-    @Override
-    public String toString() {
-        return "name: "+ this.getName()+"legalCode: "+"\n"+this.legalCode;
-    }
+
+
 }

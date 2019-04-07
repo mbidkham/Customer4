@@ -1,15 +1,34 @@
 package com.rayanen.banking.dto;
 
+
+
+
+import javax.persistence.Id;
+
 public class PhoneDto {
-    private String num;
+    @Id
+    private Integer id;
+
+    private String number;
+
+
     private PhoneType type;
 
-    public String getNum() {
-        return num;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setNum(String num) {
-        this.num = num;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String num) {
+        this.number = num;
     }
 
     public PhoneType getType() {

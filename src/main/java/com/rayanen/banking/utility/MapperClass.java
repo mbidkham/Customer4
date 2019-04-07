@@ -1,48 +1,93 @@
 package com.rayanen.banking.utility;
 
+import com.rayanen.banking.utility.Annotations.MapTo;
+import com.rayanen.banking.utility.Annotations.NotMap;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 
 public class MapperClass {
 
-    public static Object dtoToEntityMapper(Object entityObject, Object dtoObject) {
+    public static <E, D> E dtoToEntityMapper(E entityObject, D dtoObject) {
 
 
         Class dtoClass = dtoObject.getClass();
 
-        Method[] dtoMethods = dtoClass.getMethods();
+        Method[] dtoMethodsArray = dtoClass.getMethods();
+
+        ArrayList<Method> dtoMethods = new ArrayList<>(Arrays.asList(dtoMethodsArray));
+        ArrayList<Method> removalMethods = new ArrayList<>();
+        for (Method dtoMethod : dtoMethods) {
+            if (!dtoMethod.getName().contains("get")) {
+                removalMethods.add(dtoMethod);
+            }
+
+
+        }
+
+        dtoMethods.removeAll(removalMethods);
+
+        Field[] dtoFieldNamesArray = dtoClass.getDeclaredFields();
+
+        ArrayList<Field> dtoFieldNames = new ArrayList(Arrays.asList(dtoFieldNamesArray));
+
+        dtoFieldNamesArray = dtoObject.getClass().getSuperclass().getDeclaredFields();
+
+        dtoFieldNames .addAll(new ArrayList(Arrays.asList(dtoFieldNamesArray)));
+//        fs[0].setAccessible(true);
 
         Class entityClass = entityObject.getClass();
 
         Method[] entityMethods = entityClass.getMethods();
 
-        String methodName;
+        for (Field fieldName :dtoFieldNames) {
 
-        for (Method declaredDtoMethod : dtoMethods) {
+            for (Method dtoMethod : dtoMethods) {
 
-            if (declaredDtoMethod.getName().startsWith("get")) {
-                methodName = declaredDtoMethod.getName().substring(3);
-                if (declaredDtoMethod.getReturnType().toString().contains("List")) {
-                    methodName = declaredDtoMethod.getName().substring(0 , declaredDtoMethod.getName().length()-4);
-                    List entityList = new ArrayList();
-                    try {
+                if (fieldName.getType().toString().contains("List") && Objects.nonNull(fieldName.getDeclaredAnnotation(NotMap.class))) {
 
-                        ArrayList invokedDtoList = (ArrayList) declaredDtoMethod.invoke(dtoObject);
-                        for (Object dtoList : invokedDtoList) {
+                    for (Method declaredEntityMethod : entityMethods) {
 
-                            entityList.add(MapperClass.dtoToEntityMapper(new Object(), dtoList));
+                        if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
+
+                            try {
+
+                                Object invokedMethod = dtoMethod.invoke(dtoObject);
+                                declaredEntityMethod.invoke(entityObject, invokedMethod);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                         }
+                    }
+
+                    break;
+
+                } else if (fieldName.getType().toString().contains("List")) {
+                    try {
+
+                        List invokedMethod = (ArrayList)dtoMethod.invoke(dtoObject);
+                        List mappedDtoList = new ArrayList();
+
+                        for (Object invokedList : invokedMethod) {
+
+                            mappedDtoList.add(MapperClass.dtoToEntityMapper(new Object() , invokedList));
+                        }
+
                         for (Method declaredEntityMethod : entityMethods) {
 
-                            if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + methodName)) {
+                            if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
 
                                 try {
 
-                                    declaredEntityMethod.invoke(entityObject, entityList);
+                                    declaredEntityMethod.invoke(entityObject, mappedDtoList);
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -55,30 +100,53 @@ public class MapperClass {
                         e.printStackTrace();
                     }
 
-                } else {
+                    break;
+
+                } else if (Objects.equals(fieldName.getName(), dtoMethod.getName().substring(3).toLowerCase()) && Objects.nonNull(fieldName.getDeclaredAnnotation(MapTo.class))) {
 
                     for (Method declaredEntityMethod : entityMethods) {
 
-                        if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + methodName)) {
+                        if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
 
                             try {
 
-                                Object invokedMethod = declaredDtoMethod.invoke(dtoObject);
-                                declaredEntityMethod.invoke(entityObject, invokedMethod);
+                                Object invokedMethod = dtoMethod.invoke(dtoObject);
+                                Object mappedDto = MapperClass.dtoToEntityMapper(new Object() , invokedMethod);
+                                declaredEntityMethod.invoke(entityObject, mappedDto);
+
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
+                        }
+                    }
+
+
+                    break;
+
+                } else {
+                    for (Method declaredEntityMethod : entityMethods) {
+//
+                        if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
+
+                            try {
+
+                                Object invokedMethod = dtoMethod.invoke(dtoObject);
+                                declaredEntityMethod.invoke(entityObject, invokedMethod);
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
 
                         }
-
-
                     }
                 }
 
-            }
 
+            }
         }
+
+
         return entityObject;
     }
 

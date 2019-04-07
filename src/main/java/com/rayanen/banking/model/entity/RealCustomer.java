@@ -43,8 +43,5 @@ public class RealCustomer extends  Customer{
         this.lastName = lastName;
     }
 
-    @Override
-    public String toString() {
-        return "name: "+this.getName()+"\n"+"lastName : "+this.getLastName()+"\n"+"nationLCode: "+this.nationalCode;
-    }
+
 }

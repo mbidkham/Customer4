@@ -11,7 +11,9 @@ public class Phone {
     @Id
     @GeneratedValue
     private Integer id;
+
     private String number;
+
     private PhoneType type;
 
 

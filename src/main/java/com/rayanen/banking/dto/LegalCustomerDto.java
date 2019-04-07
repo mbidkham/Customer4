@@ -1,8 +1,12 @@
 package com.rayanen.banking.dto;
 
+import javax.validation.constraints.NotNull;
+
 public class LegalCustomerDto extends CustomerDto {
 
+    @NotNull(message = "کد ثبت شرکت  را وارد نکرده اید ")
     private String legalCode;
+
     private  String phone;
 
 

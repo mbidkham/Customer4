@@ -78,7 +78,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/ws/saveLegalCustomer", method = RequestMethod.POST)
     @Transactional(rollbackOn = Exception.class)
-    public ResponseDto<String> saveLegalCustomer( @RequestBody LegalCustomerDto legalCustomerDto) {
+    public ResponseDto<String> saveLegalCustomer(@Valid @RequestBody LegalCustomerDto legalCustomerDto) {
 
         return bankingAccountFacade.saveNewLegalCustomer(legalCustomerDto);
 
@@ -89,7 +89,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/ws/saveRealCustomer", method = RequestMethod.POST)
     @Transactional(rollbackOn = Exception.class)
-    public ResponseDto saveRealCustomer( @RequestBody RealCustomerDto realCustomerDto) {
+    public ResponseDto saveRealCustomer(@Valid @RequestBody RealCustomerDto realCustomerDto) {
 
 
         return bankingAccountFacade.saveNewRealCustomer(realCustomerDto);

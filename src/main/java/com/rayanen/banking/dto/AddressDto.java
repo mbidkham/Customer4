@@ -1,13 +1,41 @@
 package com.rayanen.banking.dto;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Version;
+
 public class AddressDto {
 
+    @Id
+    @GeneratedValue
+    private Integer id;
 
     private String street;
+
     private String city;
+
     private String province;
+
     private String postalCode;
 
+    @Version
+    private Integer version;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public void setStreet(String street) {
         this.street = street;

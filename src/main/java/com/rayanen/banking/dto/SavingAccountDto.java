@@ -1,25 +1,31 @@
 package com.rayanen.banking.dto;
 
-import com.rayanen.banking.model.entity.Transaction;
+import javax.persistence.Id;
 
+import javax.persistence.Version;
 import java.math.BigDecimal;
 import java.util.List;
 
 public class SavingAccountDto {
 
-    private List<Transaction> transactions;
+    @Id
+    private Integer id;
+
+    @Version
+    private Integer version;
+
+
+    private List<TransactionDto> transactions;
 
     private Integer accountNumber;
 
     private BigDecimal balance = new BigDecimal(5000) ;
-
 
     private BigDecimal minBalance=balance;
 
     private BigDecimal sumOfMinBalances = new BigDecimal(0);
 
     private BigDecimal monthlyProfit = new BigDecimal(0);
-
 
 
     public BigDecimal getSumOfMinBalances() {
@@ -31,6 +37,23 @@ public class SavingAccountDto {
     }
 
 
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
+
     public BigDecimal getBalance() {
         return balance;
     }
@@ -39,7 +62,7 @@ public class SavingAccountDto {
         this.balance = balance;
     }
 
-    public void setTransactions(List<Transaction> transactions) {
+    public void setTransactions(List<TransactionDto> transactions) {
         this.transactions = transactions;
     }
 
@@ -59,7 +82,7 @@ public class SavingAccountDto {
         this.monthlyProfit = monthlyProfit;
     }
 
-    public List<Transaction> getTransactions() {
+    public List<TransactionDto> getTransactions() {
         return transactions;
     }
 
@@ -72,10 +95,5 @@ public class SavingAccountDto {
     public void setAccountNumber(Integer accountNumber) {
         this.accountNumber = accountNumber;
     }
-
-
-
-
-
 
 }
