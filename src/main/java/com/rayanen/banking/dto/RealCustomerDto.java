@@ -1,5 +1,6 @@
 package com.rayanen.banking.dto;
 
+import com.rayanen.banking.model.entity.Contact;
 import com.rayanen.banking.utility.Annotations.MapTo;
 
 import javax.validation.constraints.NotNull;
@@ -12,7 +13,7 @@ public class RealCustomerDto extends CustomerDto {
     @NotNull(message = "کد ملی  را وارد نکرده اید ")
     private  String nationalCode;
 
-    @MapTo
+    @MapTo(targetEntity = Contact.class)
     private ContactDto contact;
 
 

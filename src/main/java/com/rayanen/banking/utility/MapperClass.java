@@ -3,7 +3,7 @@ package com.rayanen.banking.utility;
 import com.rayanen.banking.utility.Annotations.MapTo;
 import com.rayanen.banking.utility.Annotations.NotMap;
 
-import java.lang.reflect.Array;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -110,8 +110,11 @@ public class MapperClass {
 
                             try {
 
+                                MapTo mapTo = fieldName.getAnnotation(MapTo.class);
                                 Object invokedMethod = dtoMethod.invoke(dtoObject);
-                                Object mappedDto = MapperClass.dtoToEntityMapper(new Object() , invokedMethod);
+                                Class targetEntityClass = mapTo.targetEntity();
+                                Object mapToEntityObj = targetEntityClass.newInstance();
+                                Object mappedDto = MapperClass.dtoToEntityMapper(mapToEntityObj , invokedMethod);
                                 declaredEntityMethod.invoke(entityObject, mappedDto);
 
                             } catch (Exception e) {
@@ -126,7 +129,7 @@ public class MapperClass {
 
                 } else {
                     for (Method declaredEntityMethod : entityMethods) {
-//
+
                         if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
 
                             try {
