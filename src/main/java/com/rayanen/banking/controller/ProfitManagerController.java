@@ -20,36 +20,36 @@ public class ProfitManagerController {
     public ProfitManagerController(SavingAccountDao savingAccountDao) {
         this.savingAccountDao = savingAccountDao;
     }
-
-    @Scheduled(cron = "59 * * * * *")
-    public void profitManager() {
-        List<SavingAccount> savingAccounts = savingAccountDao.findAll();
-        for (SavingAccount savingAccount : savingAccounts) {
-            BigDecimal profitPercent= new BigDecimal(20);
-            BigDecimal year= new BigDecimal(36500);
-            savingAccount.setMonthlyProfit((savingAccount.getSumOfMinBalances() .multiply(profitPercent )).divide(year) );
-            savingAccount.setBalance(savingAccount.getBalance().add(savingAccount.getMonthlyProfit()));
-            savingAccount.setMonthlyProfit(BigDecimal.ZERO);
-            savingAccountDao.save(savingAccount);
-        }
-        logger.info("profitManager");
-
-
-    }
-
-    @Scheduled(cron = "40 * * * * *")
-    public void minBalanceSetting() {
-
-        List<SavingAccount> savingAccounts = savingAccountDao.findAll();
-        if(savingAccounts.size()!=0){
-            for (SavingAccount sa : savingAccounts) {
-                sa.setSumOfMinBalances(sa.getMinBalance() .add(sa.getSumOfMinBalances()) );
-                sa.setMinBalance(sa.getBalance());
-                savingAccountDao.save(sa);
-            }
-        }
-
-
-
-    }
+//
+//    @Scheduled(cron = "59 * * * * *")
+//    public void profitManager() {
+//        List<SavingAccount> savingAccounts = savingAccountDao.findAll();
+//        for (SavingAccount savingAccount : savingAccounts) {
+//            BigDecimal profitPercent= new BigDecimal(20);
+//            BigDecimal year= new BigDecimal(36500);
+//            savingAccount.setMonthlyProfit((savingAccount.getSumOfMinBalances() .multiply(profitPercent )).divide(year) );
+//            savingAccount.setBalance(savingAccount.getBalance().add(savingAccount.getMonthlyProfit()));
+//            savingAccount.setMonthlyProfit(BigDecimal.ZERO);
+//            savingAccountDao.save(savingAccount);
+//        }
+//        logger.info("profitManager");
+//
+//
+//    }
+//
+//    @Scheduled(cron = "40 * * * * *")
+//    public void minBalanceSetting() {
+//
+//        List<SavingAccount> savingAccounts = savingAccountDao.findAll();
+//        if(savingAccounts.size()!=0){
+//            for (SavingAccount sa : savingAccounts) {
+//                sa.setSumOfMinBalances(sa.getMinBalance() .add(sa.getSumOfMinBalances()) );
+//                sa.setMinBalance(sa.getBalance());
+//                savingAccountDao.save(sa);
+//            }
+//        }
+//
+//
+//
+//    }
 }

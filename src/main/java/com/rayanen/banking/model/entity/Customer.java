@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-
 @MappedSuperclass
 abstract public  class Customer {
 
@@ -26,6 +25,7 @@ abstract public  class Customer {
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "")
     private List<SavingAccount> savingAccounts;
 
     public Integer getVersion() {

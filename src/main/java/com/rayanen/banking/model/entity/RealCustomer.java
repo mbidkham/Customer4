@@ -3,7 +3,7 @@ package com.rayanen.banking.model.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
+@Table(name =" BID_real")
 @Entity
 public class RealCustomer extends  Customer{
 

@@ -8,6 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+@Table(name =" BID_TRANSACTION")
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 public class Transaction {

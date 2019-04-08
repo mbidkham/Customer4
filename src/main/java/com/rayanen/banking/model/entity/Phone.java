@@ -5,7 +5,9 @@ import com.rayanen.banking.dto.PhoneType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Table( name = "BID_PHONES")
 @Entity
 public class Phone {
     @Id

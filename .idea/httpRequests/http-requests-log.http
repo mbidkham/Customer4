@@ -3,6 +3,37 @@ Accept: */*
 Cache-Control: no-cache
 Content-Type: application/json
 
+{"name":"ali","nationalCode":"123"}
+
+<> 2019-04-08T093004.200.json
+
+###
+
+POST http://localhost:8080/ws/saveRealCustomer
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{"name":"ali","nationalCode":"123"}
+
+###
+
+POST http://localhost:8080/wa/saveRealCustomer
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{"name":"ali","nationalCode":"123"}
+
+<> 2019-04-08T092237.404.json
+
+###
+
+POST http://localhost:8080/ws/saveRealCustomer
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
 {   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
 
 ###
@@ -488,39 +519,6 @@ Content-Type: application/json
 {  "name":"alireza", "nationalCode":"12344" }
 
 <> 2019-04-04T111303.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{  "name":"ali", "nationalCode":"123" }
-
-<> 2019-04-04T111248.200.json
-
-###
-
-POST http://localhost:8080/ws/searchReal
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "code":"123" }
-
-<> 2019-04-04T111037.500.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "ali",   "nationalCode": "123" }
-
-<> 2019-04-04T111015.200.json
 
 ###
 

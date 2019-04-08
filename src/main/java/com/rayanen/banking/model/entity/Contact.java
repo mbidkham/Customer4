@@ -5,6 +5,7 @@ package com.rayanen.banking.model.entity;
 import javax.persistence.*;
 
 import java.util.List;
+@Table(name =" BID_CONTACT")
 @Entity
 public class Contact {
 
@@ -13,6 +14,7 @@ public class Contact {
     private Integer id;
     private String email;
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "BID_PHONELIST")
     private List<Phone> phones;
 
     @Version

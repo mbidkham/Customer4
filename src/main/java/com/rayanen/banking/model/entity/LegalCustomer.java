@@ -6,7 +6,7 @@ import com.rayanen.banking.utility.Annotations.MapTo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
+@Table(name =" BID_legal")
 @Entity
 public class LegalCustomer extends Customer {
 

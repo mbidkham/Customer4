@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-
+@Table(name =" BID_ACCOUNTS")
 @Entity
 public class SavingAccount {
 
@@ -17,6 +17,7 @@ public class SavingAccount {
     private Integer version;
 
     @OneToMany
+    @JoinTable(name ="BID_TRANSACTION")
     private List<Transaction> transactions;
 
     private Integer accountNumber;

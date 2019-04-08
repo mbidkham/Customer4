@@ -40,7 +40,7 @@ public class MapperClass {
         dtoFieldNamesArray = dtoObject.getClass().getSuperclass().getDeclaredFields();
 
         dtoFieldNames .addAll(new ArrayList(Arrays.asList(dtoFieldNamesArray)));
-//        fs[0].setAccessible(true);
+
 
         Class entityClass = entityObject.getClass();
 
@@ -50,7 +50,7 @@ public class MapperClass {
 
             for (Method dtoMethod : dtoMethods) {
 
-                if (fieldName.getType().toString().contains("List") && Objects.nonNull(fieldName.getDeclaredAnnotation(NotMap.class))) {
+                if (fieldName.getType().toString().contains("List") ) {
 
                     for (Method declaredEntityMethod : entityMethods) {
 
