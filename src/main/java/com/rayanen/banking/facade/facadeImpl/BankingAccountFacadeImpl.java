@@ -22,47 +22,47 @@ public class BankingAccountFacadeImpl implements BankingAccountFacade {
     }
 
 
-    public ResponseDto<String> saveNewLegalCustomer(LegalCustomerDto legalCustomerDto){
+    public Object saveNewLegalCustomer(LegalCustomerDto legalCustomerDto){
 
-       return bankingService.saveLegalCustomer( MapperClass.dtoToEntityMapper(new LegalCustomer(), legalCustomerDto)) ;
+       return bankingService.saveLegalCustomer( MapperClass.mapper(new LegalCustomer(), legalCustomerDto)) ;
 
 
     }
-    public ResponseDto<String> saveNewRealCustomer(RealCustomerDto realCustomerDto){
+    public Object saveNewRealCustomer(RealCustomerDto realCustomerDto){
 
-        RealCustomer realCustomer =  MapperClass.dtoToEntityMapper(new RealCustomer(), realCustomerDto);
+        RealCustomer realCustomer =  MapperClass.mapper(new RealCustomer(), realCustomerDto);
 
         return bankingService.saveRealCustomer(realCustomer) ;
 
     }
-    public ResponseDto searchReal(SearchDto searchDto){
+    public Object searchReal(SearchDto searchDto){
 
        return bankingService.searchReal(searchDto);
 
     }
 
-    public ResponseDto searchLegal(SearchDto searchDto){
+    public Object searchLegal(SearchDto searchDto){
 
         return bankingService.searchLegal(searchDto);
 
     }
-    public ResponseDto advanceLegalSearch(AdvanceSearchDto advanceSearchDto){
+    public Object advanceLegalSearch(AdvanceSearchDto advanceSearchDto){
 
         return bankingService.advanceLegalSearch(advanceSearchDto);
     }
 
-    public ResponseDto advanceRealSearch(AdvanceSearchDto advanceSearchDto){
+    public Object advanceRealSearch(AdvanceSearchDto advanceSearchDto){
 
         return bankingService.advanceRealSearch(advanceSearchDto);
     }
 
-    public ResponseDto updateLegal(LegalCustomerDto legalCustomerDto){
+    public String updateLegal(LegalCustomerDto legalCustomerDto){
 
         return bankingService.updateLegal(legalCustomerDto);
 
     }
 
-    public ResponseDto updateReal(RealCustomerDto realCustomerDto){
+    public String updateReal(RealCustomerDto realCustomerDto){
 
         return bankingService.updateReal(realCustomerDto);
 
@@ -70,34 +70,34 @@ public class BankingAccountFacadeImpl implements BankingAccountFacade {
 
 
 
-    public ResponseDto savingAccountForReal(SearchDto searchDto){
+    public Object savingAccountForReal(SearchDto searchDto){
 
         return bankingService.savingAccountForReal(searchDto) ;
 
     }
 
-    public ResponseDto savingAccountForLegal(SearchDto searchDto){
+    public Object savingAccountForLegal(SearchDto searchDto){
 
         return bankingService.savingAccountForLegal(searchDto) ;
 
     }
 
-    public ResponseDto searchByAccountNumber(SearchDto searchDto){
+    public Object searchByAccountNumber(SearchDto searchDto){
 
         return bankingService.searchByAccountNumber(searchDto);
 
     }
-    public ResponseDto withdrawal(TransactionRequirementsDto transactionRequirementsDto){
+    public Object withdrawal(TransactionRequirementsDto transactionRequirementsDto){
 
         return bankingService.withdrawal(transactionRequirementsDto);
     }
 
-    public ResponseDto deposit(TransactionRequirementsDto transactionRequirementsDto){
+    public Object deposit(TransactionRequirementsDto transactionRequirementsDto){
 
          return bankingService.deposit(transactionRequirementsDto);
     }
 
-    public ResponseDto transferMoney(TransferMoneyDto transferMoneyDto){
+    public Object transferMoney(TransferMoneyDto transferMoneyDto){
 
         return bankingService.transferMoney(transferMoneyDto);
 

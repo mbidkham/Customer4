@@ -3,94 +3,101 @@ package com.rayanen.banking.utility;
 import com.rayanen.banking.utility.Annotations.MapTo;
 import com.rayanen.banking.utility.Annotations.NotMap;
 
-
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 public class MapperClass {
 
-    public static <E, D> E dtoToEntityMapper(E entityObject, D dtoObject) {
+    public static <E, D> E mapper(E destinationObj, D sourceObj) {
 
 
-        Class dtoClass = dtoObject.getClass();
+        Class sourceClass = sourceObj.getClass();
 
-        Method[] dtoMethodsArray = dtoClass.getMethods();
+        Method[] sourceMethodArr = sourceClass.getMethods();
 
-        ArrayList<Method> dtoMethods = new ArrayList<>(Arrays.asList(dtoMethodsArray));
+        ArrayList<Method> sourceMethods = new ArrayList<>(Arrays.asList(sourceMethodArr));
         ArrayList<Method> removalMethods = new ArrayList<>();
-        for (Method dtoMethod : dtoMethods) {
-            if (!dtoMethod.getName().contains("get")) {
-                removalMethods.add(dtoMethod);
+        for (Method sourceMethod : sourceMethods) {
+            if (!sourceMethod.getName().contains("get")) {
+                removalMethods.add(sourceMethod);
             }
 
 
         }
 
-        dtoMethods.removeAll(removalMethods);
+        sourceMethods.removeAll(removalMethods);
 
-        Field[] dtoFieldNamesArray = dtoClass.getDeclaredFields();
+        Field[] sourceFieldNamesArray = sourceClass.getDeclaredFields();
 
-        ArrayList<Field> dtoFieldNames = new ArrayList(Arrays.asList(dtoFieldNamesArray));
+        ArrayList<Field> sourceFieldNames = new ArrayList(Arrays.asList(sourceFieldNamesArray));
 
-        dtoFieldNamesArray = dtoObject.getClass().getSuperclass().getDeclaredFields();
+        sourceFieldNamesArray = sourceObj.getClass().getSuperclass().getDeclaredFields();
 
-        dtoFieldNames .addAll(new ArrayList(Arrays.asList(dtoFieldNamesArray)));
+        sourceFieldNames .addAll(new ArrayList(Arrays.asList(sourceFieldNamesArray)));
+
+        Map<Field , Method > sourceFieldsAndMethods = new HashMap<>();
+        for(Field field : sourceFieldNames){
+
+            for (Method sourceMethod : sourceMethods) {
+                if(field.getName().equalsIgnoreCase(sourceMethod.getName().substring(3))){
+                    sourceFieldsAndMethods.put(field,sourceMethod);
+                }
 
 
-        Class entityClass = entityObject.getClass();
+            }
+        }
 
-        Method[] entityMethods = entityClass.getMethods();
+        Class destinationClass = destinationObj.getClass();
 
-        for (Field fieldName :dtoFieldNames) {
+        Method[] destinationMethods = destinationClass.getMethods();
 
-            for (Method dtoMethod : dtoMethods) {
+        for (Field sourceFieldName :sourceFieldNames) {
 
-                if (fieldName.getType().toString().contains("List") ) {
 
-                    for (Method declaredEntityMethod : entityMethods) {
 
-                        if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
+                if (sourceFieldName.getType().toString().contains("List") && Objects.isNull(sourceFieldName.getDeclaredAnnotation(MapTo.class)) ) {
+
+                    for (Method destinationMethod : destinationMethods) {
+
+                        if (destinationMethod.getName().startsWith("set") && Objects.equals(destinationMethod.getName(), "set" + sourceFieldsAndMethods.get(sourceFieldName).getName().substring(3)) ) {
 
                             try {
 
-                                Object invokedMethod = dtoMethod.invoke(dtoObject);
-                                declaredEntityMethod.invoke(entityObject, invokedMethod);
+                                Object invokedMethod = sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
+                                destinationMethod.invoke(destinationObj, invokedMethod);
 
                             } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-
-                        }
+                        e.printStackTrace();
                     }
 
-                    break;
+                }
+            }
 
-                } else if (fieldName.getType().toString().contains("List") && Objects.nonNull(fieldName.getDeclaredAnnotation(MapTo.class))) {
-                    try {
-                        MapTo mapTo = fieldName.getAnnotation(MapTo.class);
-                        Class targetEntityClass = mapTo.targetEntity();
-                        Object mapToEntityObj = targetEntityClass.newInstance();
+            continue;
 
-                        List invokedMethod = (ArrayList)dtoMethod.invoke(dtoObject);
+        } else if (sourceFieldName.getType().toString().contains("List") && Objects.nonNull(sourceFieldName.getDeclaredAnnotation(MapTo.class))) {
+            try {
+                MapTo mapTo = sourceFieldName.getAnnotation(MapTo.class);
+                Class targetDestinationClass = mapTo.targetEntity();
+                Object mapToDestionationObj = targetDestinationClass.newInstance();
+
+                        List invokedMethod = (ArrayList)sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
                         List mappedDtoList = new ArrayList();
 
                         for (Object invokedList : invokedMethod) {
 
-                            mappedDtoList.add(MapperClass.dtoToEntityMapper(mapToEntityObj , invokedList));
+                            mappedDtoList.add(MapperClass.mapper(mapToDestionationObj , invokedList));
                         }
 
-                        for (Method declaredEntityMethod : entityMethods) {
+                        for (Method destinationMethod : destinationMethods) {
 
-                            if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
+                            if (destinationMethod.getName().startsWith("set") && Objects.equals(destinationMethod.getName(), "set" + sourceFieldsAndMethods.get(sourceFieldName).getName().substring(3))) {
 
                                 try {
 
-                                    declaredEntityMethod.invoke(entityObject, mappedDtoList);
+                                    destinationMethod.invoke(destinationObj, mappedDtoList);
 
                                 } catch (Exception e) {
                                     e.printStackTrace();
@@ -103,22 +110,22 @@ public class MapperClass {
                         e.printStackTrace();
                     }
 
-                    break;
+                    continue;
 
-                } else if (Objects.equals(fieldName.getName(), dtoMethod.getName().substring(3).toLowerCase()) && Objects.nonNull(fieldName.getDeclaredAnnotation(MapTo.class))) {
+                } else if ( Objects.nonNull(sourceFieldName.getDeclaredAnnotation(MapTo.class))) {
 
-                    for (Method declaredEntityMethod : entityMethods) {
+                    for (Method destinationMethod : destinationMethods) {
 
-                        if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
+                        if (destinationMethod.getName().startsWith("set") && Objects.equals(destinationMethod.getName(), "set" + sourceFieldsAndMethods.get(sourceFieldName).getName().substring(3))) {
 
                             try {
 
-                                MapTo mapTo = fieldName.getAnnotation(MapTo.class);
-                                Object invokedMethod = dtoMethod.invoke(dtoObject);
-                                Class targetEntityClass = mapTo.targetEntity();
-                                Object mapToEntityObj = targetEntityClass.newInstance();
-                                Object mappedDto = MapperClass.dtoToEntityMapper(mapToEntityObj , invokedMethod);
-                                declaredEntityMethod.invoke(entityObject, mappedDto);
+                                MapTo mapTo = sourceFieldName.getAnnotation(MapTo.class);
+                                Object invokedMethod = sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
+                                Class targetDestinationClass = mapTo.targetEntity();
+                                Object mapToDestinationObj = targetDestinationClass.newInstance();
+                                Object mappedObj = MapperClass.mapper(mapToDestinationObj , invokedMethod);
+                                destinationMethod.invoke(destinationObj, mappedObj);
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -128,17 +135,19 @@ public class MapperClass {
                     }
 
 
-                    break;
+                    continue;
 
-                } else {
-                    for (Method declaredEntityMethod : entityMethods) {
+                } else if(Objects.isNull(sourceFieldName.getDeclaredAnnotation(NotMap.class))) {
+                    for (Method destinationMethod : destinationMethods) {
 
-                        if (declaredEntityMethod.getName().startsWith("set") && Objects.equals(declaredEntityMethod.getName(), "set" + dtoMethod.getName().substring(3))) {
+                        if (destinationMethod.getName().startsWith("set") && Objects.equals(destinationMethod.getName() , "set" + sourceFieldsAndMethods.get(sourceFieldName).getName().substring(3))) {
 
                             try {
 
-                                Object invokedMethod = dtoMethod.invoke(dtoObject);
-                                declaredEntityMethod.invoke(entityObject, invokedMethod);
+
+                                Object invokedMethod = sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
+                               if(Objects.nonNull(invokedMethod))
+                                destinationMethod.invoke(destinationObj, invokedMethod);
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -149,51 +158,13 @@ public class MapperClass {
                 }
 
 
-            }
-        }
-
-
-        return entityObject;
-    }
-
-    public static Object entityToDtoMapper(Object dtoObject, Object entityObject) {
-
-        Class dtoClass = dtoObject.getClass();
-
-        Method[] dtoMethods = dtoClass.getMethods();
-
-        Class entityClass = entityObject.getClass();
-
-        Method[] entityMethods = entityClass.getMethods();
-
-        String methodName;
-
-        for (Method declaredEntityMethod : entityMethods) {
-
-            if (declaredEntityMethod.getName().startsWith("get")) {
-
-                methodName = declaredEntityMethod.getName().substring(3);
-                for (Method declaredDtoMethod : dtoMethods) {
-
-                    if (declaredDtoMethod.getName().startsWith("set") && Objects.equals(declaredDtoMethod.getName(), "set" + methodName)) {
-
-                        try {
-
-                            Object invokedMethod = declaredEntityMethod.invoke(entityObject);
-                            declaredDtoMethod.invoke(dtoObject, invokedMethod);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-
-                    }
-
-
-                }
-            }
 
         }
-        return dtoObject;
+
+
+        return destinationObj;
     }
+
+
 }
 

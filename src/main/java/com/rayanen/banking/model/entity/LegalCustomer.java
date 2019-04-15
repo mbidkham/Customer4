@@ -14,7 +14,7 @@ public class LegalCustomer extends Customer {
     @Column(unique = true)
     private String legalCode;
 
-    @MapTo
+
     private String phone;
 
     public String getPhone() {

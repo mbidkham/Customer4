@@ -2,7 +2,10 @@ package com.rayanen.banking.model.entity;
 
 
 
+import com.rayanen.banking.dto.AddressDto;
+import com.rayanen.banking.dto.SavingAccountDto;
 import com.rayanen.banking.utility.Annotations.MapTo;
+import com.rayanen.banking.utility.Annotations.NotMap;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,6 +17,7 @@ abstract public  class Customer {
     @Id
     @GeneratedValue
     private Integer id;
+
     @Version
     private Integer version;
 
@@ -21,11 +25,11 @@ abstract public  class Customer {
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @MapTo
+    @MapTo(targetEntity = AddressDto.class)
     private Address address;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "")
+    @MapTo(targetEntity = SavingAccountDto.class)
     private List<SavingAccount> savingAccounts;
 
     public Integer getVersion() {

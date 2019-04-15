@@ -3,17 +3,31 @@ package com.rayanen.banking.dto;
 
 
 
+import com.rayanen.banking.utility.Annotations.NotMap;
+
 import javax.persistence.Id;
+import javax.persistence.Version;
 
 public class PhoneDto {
     @Id
     private Integer id;
+
+    @NotMap
+    @Version
+    private  Integer version;
 
     private String number;
 
 
     private PhoneType type;
 
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public Integer getId() {
         return id;

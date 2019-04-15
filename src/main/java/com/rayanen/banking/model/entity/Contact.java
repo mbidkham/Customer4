@@ -2,6 +2,9 @@ package com.rayanen.banking.model.entity;
 
 
 
+import com.rayanen.banking.dto.PhoneDto;
+import com.rayanen.banking.utility.Annotations.MapTo;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -12,10 +15,13 @@ public class Contact {
     @Id
     @GeneratedValue
     private Integer id;
+
     private String email;
+
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "BID_PHONELIST")
+    @MapTo(targetEntity = PhoneDto.class)
     private List<Phone> phones;
+
 
     @Version
     private Integer version;

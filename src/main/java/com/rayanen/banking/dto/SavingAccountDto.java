@@ -1,5 +1,10 @@
 package com.rayanen.banking.dto;
 
+import com.rayanen.banking.model.entity.Phone;
+import com.rayanen.banking.model.entity.Transaction;
+import com.rayanen.banking.utility.Annotations.MapTo;
+import com.rayanen.banking.utility.Annotations.NotMap;
+
 import javax.persistence.Id;
 
 import javax.persistence.Version;
@@ -12,9 +17,10 @@ public class SavingAccountDto {
     private Integer id;
 
     @Version
+    @NotMap
     private Integer version;
 
-
+    @MapTo(targetEntity = Transaction.class)
     private List<TransactionDto> transactions;
 
     private Integer accountNumber;

@@ -1,6 +1,7 @@
 package com.rayanen.banking.filter;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -8,8 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
-public class SimpleCORSFilter implements Filter {
-
+public class SimpleCORSFilter extends GenericFilterBean {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -17,15 +17,9 @@ public class SimpleCORSFilter implements Filter {
         response.setHeader("Access-Control-Allow-Origin", ((HttpServletRequest)req).getHeader("origin"));
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE, PATCH");
         response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Headers", "content-type");
+        response.setHeader("Access-Control-Allow-Headers", "getallinfo,content-type");
         chain.doFilter(req, res);
     }
 
-    @Override
-    public void init(FilterConfig filterConfig) {}
-
-    @Override
-    public void destroy() {}
-
-
 }
+

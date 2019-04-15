@@ -4,32 +4,32 @@ import com.rayanen.banking.dto.*;
 
 public interface BankingAccountFacade {
 
-     ResponseDto saveNewLegalCustomer(LegalCustomerDto legalCustomerDto);
+     Object saveNewLegalCustomer(LegalCustomerDto legalCustomerDto);
 
-     ResponseDto saveNewRealCustomer(RealCustomerDto realCustomerDto);
+     Object saveNewRealCustomer(RealCustomerDto realCustomerDto);
 
-     ResponseDto searchLegal(SearchDto searchDto);
+     Object searchLegal(SearchDto searchDto);
 
-     ResponseDto searchReal(SearchDto searchDto);
+     Object searchReal(SearchDto searchDto);
 
-     ResponseDto advanceLegalSearch(AdvanceSearchDto advanceSearchDto);
+     Object advanceLegalSearch(AdvanceSearchDto advanceSearchDto);
 
-     ResponseDto advanceRealSearch(AdvanceSearchDto advanceSearchDto);
+     Object advanceRealSearch(AdvanceSearchDto advanceSearchDto);
 
-     ResponseDto updateLegal(LegalCustomerDto legalCustomerDto);
+     String updateLegal(LegalCustomerDto legalCustomerDto);
 
-     ResponseDto updateReal(RealCustomerDto realCustomerDto);
+     String updateReal(RealCustomerDto realCustomerDto);
 
-     ResponseDto savingAccountForReal(SearchDto searchDto);
+     Object savingAccountForReal(SearchDto searchDto);
 
-     ResponseDto savingAccountForLegal(SearchDto searchDto);
+     Object savingAccountForLegal(SearchDto searchDto);
 
-     ResponseDto searchByAccountNumber(SearchDto searchDto);
+     Object searchByAccountNumber(SearchDto searchDto);
 
-     ResponseDto withdrawal(TransactionRequirementsDto transactionRequirementsDto);
+     Object withdrawal(TransactionRequirementsDto transactionRequirementsDto);
 
-     ResponseDto deposit(TransactionRequirementsDto transactionRequirementsDto);
+     Object deposit(TransactionRequirementsDto transactionRequirementsDto);
 
-     ResponseDto transferMoney(TransferMoneyDto transferMoneyDto);
+     Object transferMoney(TransferMoneyDto transferMoneyDto);
 
 }

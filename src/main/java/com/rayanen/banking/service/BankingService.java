@@ -12,33 +12,33 @@ import java.util.List;
 public interface BankingService {
 
 
-     ResponseDto<String> saveLegalCustomer(LegalCustomer legalCustomer) ;
+     Object saveLegalCustomer(LegalCustomer legalCustomer) ;
 
-     ResponseDto<String> saveRealCustomer(RealCustomer realCustomer) ;
+     Object saveRealCustomer(RealCustomer realCustomer) ;
 
-     ResponseDto<CustomerDto> searchLegal(SearchDto searchDto) ;
+     Object searchLegal(SearchDto searchDto) ;
 
-     ResponseDto<CustomerDto> searchReal(SearchDto searchDto);
+     Object searchReal(SearchDto searchDto);
 
-     ResponseDto<List<LegalCustomer>> advanceLegalSearch(AdvanceSearchDto advanceSearchDto) ;
+     Object advanceLegalSearch(AdvanceSearchDto advanceSearchDto) ;
 
-     ResponseDto<List<RealCustomer>> advanceRealSearch(AdvanceSearchDto advanceSearchDto) ;
+     Object advanceRealSearch(AdvanceSearchDto advanceSearchDto) ;
 
-     ResponseDto<RealCustomerDto> updateLegal(LegalCustomerDto legalCustomerDto) ;
+     String updateLegal(LegalCustomerDto legalCustomerDto) ;
 
-     ResponseDto<RealCustomerDto> updateReal(RealCustomerDto realCustomerDto) ;
+     String updateReal(RealCustomerDto realCustomerDto) ;
 
-     ResponseDto<String> savingAccountForReal(SearchDto searchDto) ;
+     Object savingAccountForReal(SearchDto searchDto) ;
 
-     ResponseDto<String> savingAccountForLegal(SearchDto searchDto) ;
+     Object savingAccountForLegal(SearchDto searchDto) ;
 
-     ResponseDto<RealCustomerDto> searchByAccountNumber(SearchDto searchDto);
+     Object searchByAccountNumber(SearchDto searchDto);
 
-     ResponseDto<RealCustomerDto> deposit(TransactionRequirementsDto transactionRequirementsDto) ;
+     Object deposit(TransactionRequirementsDto transactionRequirementsDto) ;
 
-     ResponseDto<RealCustomerDto> withdrawal(TransactionRequirementsDto transactionRequirementsDto) ;
+     Object withdrawal(TransactionRequirementsDto transactionRequirementsDto) ;
 
-     ResponseDto<RealCustomerDto> transferMoney(TransferMoneyDto transferMoneyDto) ;
+     Object transferMoney(TransferMoneyDto transferMoneyDto) ;
 
 
 }

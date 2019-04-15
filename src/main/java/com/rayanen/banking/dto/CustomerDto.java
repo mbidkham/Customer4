@@ -2,7 +2,9 @@ package com.rayanen.banking.dto;
 
 
 import com.rayanen.banking.model.entity.Address;
+import com.rayanen.banking.model.entity.SavingAccount;
 import com.rayanen.banking.utility.Annotations.MapTo;
+import com.rayanen.banking.utility.Annotations.NotMap;
 
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -17,11 +19,13 @@ public abstract class CustomerDto {
     private String name;
 
     @Version
+    @NotMap
     private Integer version;
 
     @MapTo(targetEntity = Address.class)
     private AddressDto address;
 
+    @MapTo(targetEntity = SavingAccount.class)
     private List<SavingAccountDto> savingAccounts;
 
     public Integer getVersion() {

@@ -1,5 +1,8 @@
 package com.rayanen.banking.model.entity;
 
+import com.rayanen.banking.dto.TransactionDto;
+import com.rayanen.banking.utility.Annotations.MapTo;
+
 import javax.persistence.*;
 
 import java.math.BigDecimal;
@@ -17,7 +20,7 @@ public class SavingAccount {
     private Integer version;
 
     @OneToMany
-    @JoinTable(name ="BID_TRANSACTION")
+    @MapTo(targetEntity = TransactionDto.class)
     private List<Transaction> transactions;
 
     private Integer accountNumber;
