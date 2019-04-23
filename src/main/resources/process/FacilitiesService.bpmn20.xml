@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+  <process id="FacilitiesService" name="FacilitiesService" isExecutable="true">
+    <startEvent id="startEvent1"></startEvent>
+    <userTask id="sid-1E8FB412-E9EF-4622-BB90-901EE28209C1" name="CreditsOperator" activiti:formKey="CreditsOperatorForm"></userTask>
+    <userTask id="sid-396C1585-5548-471A-BC3C-32266AC39701" name="BranchManager" activiti:formKey="BranchManagerForm"></userTask>
+    <userTask id="sid-97F60C8F-735E-4C28-9EF8-0E08FE5AAF88" name="CashDesk" activiti:formKey="CashDeskForm"></userTask>
+    <sequenceFlow id="sid-C6C87181-7C7C-49EF-AB5B-B928E5609D91" sourceRef="startEvent1" targetRef="sid-1E8FB412-E9EF-4622-BB90-901EE28209C1"></sequenceFlow>
+    <sequenceFlow id="sid-D52CD80C-F155-4C8E-A7DE-CF74E07D065E" sourceRef="sid-1E8FB412-E9EF-4622-BB90-901EE28209C1" targetRef="sid-396C1585-5548-471A-BC3C-32266AC39701"></sequenceFlow>
+    <sequenceFlow id="sid-CFFCE40F-94DB-4C18-BEAA-74524A4D4A8D" sourceRef="sid-97F60C8F-735E-4C28-9EF8-0E08FE5AAF88" targetRef="sid-EF8A294B-3F3A-4AEB-AF3E-D210A1221A8F"></sequenceFlow>
+    <endEvent id="sid-EF8A294B-3F3A-4AEB-AF3E-D210A1221A8F"></endEvent>
+    <exclusiveGateway id="sid-FD18BFB1-7E1F-4E83-84BB-4DE6592FFDF1"></exclusiveGateway>
+    <sequenceFlow id="sid-D2F8F105-6239-4C43-87D5-56EE7E0822E9" sourceRef="sid-396C1585-5548-471A-BC3C-32266AC39701" targetRef="sid-FD18BFB1-7E1F-4E83-84BB-4DE6592FFDF1"></sequenceFlow>
+    <sequenceFlow id="sid-AAE14287-6D11-4079-BC4B-5F0EF605735D" sourceRef="sid-FD18BFB1-7E1F-4E83-84BB-4DE6592FFDF1" targetRef="sid-97F60C8F-735E-4C28-9EF8-0E08FE5AAF88"></sequenceFlow>
+    <endEvent id="sid-2CE10976-283E-4DA6-B6F1-DDA23C215448"></endEvent>
+    <sequenceFlow id="sid-C9580240-780A-4A81-AC10-BB068A79AE7F" sourceRef="sid-FD18BFB1-7E1F-4E83-84BB-4DE6592FFDF1" targetRef="sid-2CE10976-283E-4DA6-B6F1-DDA23C215448"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_FacilitiesService">
+    <bpmndi:BPMNPlane bpmnElement="FacilitiesService" id="BPMNPlane_FacilitiesService">
+      <bpmndi:BPMNShape bpmnElement="startEvent1" id="BPMNShape_startEvent1">
+        <omgdc:Bounds height="30.0" width="30.0" x="15.0" y="100.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-1E8FB412-E9EF-4622-BB90-901EE28209C1" id="BPMNShape_sid-1E8FB412-E9EF-4622-BB90-901EE28209C1">
+        <omgdc:Bounds height="80.0" width="100.0" x="150.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-396C1585-5548-471A-BC3C-32266AC39701" id="BPMNShape_sid-396C1585-5548-471A-BC3C-32266AC39701">
+        <omgdc:Bounds height="80.0" width="100.0" x="360.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-97F60C8F-735E-4C28-9EF8-0E08FE5AAF88" id="BPMNShape_sid-97F60C8F-735E-4C28-9EF8-0E08FE5AAF88">
+        <omgdc:Bounds height="80.0" width="100.0" x="705.0" y="75.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-EF8A294B-3F3A-4AEB-AF3E-D210A1221A8F" id="BPMNShape_sid-EF8A294B-3F3A-4AEB-AF3E-D210A1221A8F">
+        <omgdc:Bounds height="28.0" width="28.0" x="840.0" y="101.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-FD18BFB1-7E1F-4E83-84BB-4DE6592FFDF1" id="BPMNShape_sid-FD18BFB1-7E1F-4E83-84BB-4DE6592FFDF1">
+        <omgdc:Bounds height="40.0" width="40.0" x="564.5" y="95.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sid-2CE10976-283E-4DA6-B6F1-DDA23C215448" id="BPMNShape_sid-2CE10976-283E-4DA6-B6F1-DDA23C215448">
+        <omgdc:Bounds height="28.0" width="28.0" x="573.5" y="193.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="sid-C6C87181-7C7C-49EF-AB5B-B928E5609D91" id="BPMNEdge_sid-C6C87181-7C7C-49EF-AB5B-B928E5609D91">
+        <omgdi:waypoint x="45.0" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="150.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-C9580240-780A-4A81-AC10-BB068A79AE7F" id="BPMNEdge_sid-C9580240-780A-4A81-AC10-BB068A79AE7F">
+        <omgdi:waypoint x="585.5053191489362" y="133.99468085106383"></omgdi:waypoint>
+        <omgdi:waypoint x="587.117629034769" y="193.00522267254857"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D2F8F105-6239-4C43-87D5-56EE7E0822E9" id="BPMNEdge_sid-D2F8F105-6239-4C43-87D5-56EE7E0822E9">
+        <omgdi:waypoint x="460.0" y="115.14285714285714"></omgdi:waypoint>
+        <omgdi:waypoint x="564.9426934097421" y="115.44269340974212"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-CFFCE40F-94DB-4C18-BEAA-74524A4D4A8D" id="BPMNEdge_sid-CFFCE40F-94DB-4C18-BEAA-74524A4D4A8D">
+        <omgdi:waypoint x="805.0" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="840.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-D52CD80C-F155-4C8E-A7DE-CF74E07D065E" id="BPMNEdge_sid-D52CD80C-F155-4C8E-A7DE-CF74E07D065E">
+        <omgdi:waypoint x="250.0" y="115.0"></omgdi:waypoint>
+        <omgdi:waypoint x="360.0" y="115.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="sid-AAE14287-6D11-4079-BC4B-5F0EF605735D" id="BPMNEdge_sid-AAE14287-6D11-4079-BC4B-5F0EF605735D">
+        <omgdi:waypoint x="604.0560471976402" y="115.44395280235989"></omgdi:waypoint>
+        <omgdi:waypoint x="705.0" y="115.14705882352942"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

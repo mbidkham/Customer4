@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<page title="جستجو">
+    <section title="درخواست تسهیلات" >
+
+        <input label="شماره مشتری:" type="text" value="obj.customerNumber"/>
+        <input label="مبلغ:" type="text" value="obj.amount"/>
+        <comboBox label="نوع تسهیلات " value="obj.type">
+
+            <comboItem itemLabel="وام " itemValue="LOAN"/>
+            <comboItem itemLabel="فروش اقساطی " itemValue="INSTALLMENTSSALE"/>
+
+        </comboBox>
+
+        <actions>
+            <button label="ثبت درخواست">
+                <webService address="ws/startProcess" clearPageOnSuccess="true" >
+                    <webServiceInputObject name="obj"/>
+                </webService>
+            </button>
+        </actions>
+    </section>
+</page>

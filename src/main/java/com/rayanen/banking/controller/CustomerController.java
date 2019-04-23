@@ -5,10 +5,16 @@ import com.rayanen.banking.dto.*;
 import com.rayanen.banking.dto.ResponseStatus;
 import com.rayanen.banking.facade.BankingAccountFacade;
 
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.task.Task;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -28,48 +34,205 @@ public class CustomerController {
 
     }
 
+    @Autowired
+    private TaskService taskService;
+
+    @Autowired
+    private RuntimeService runtimeService;
 
 
-    @RequestMapping(value = "/ws/menu/getUserMenu", method = RequestMethod.POST)
-    public ResponseDto<MenuItmDto> getUserMenu() {
-        MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<>(Arrays.asList(
-                new MenuItmDto(MenuItemType.MENU, "کاربر جدید :", null, new ArrayList<>(Arrays.asList(
-                        new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقیقی", new UIPageDto(null, "real.xml"), new ArrayList<>()),
-                        new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقوقی", new UIPageDto(null, "legal.xml"), new ArrayList<>())))),
-                new MenuItmDto(MenuItemType.MENU, "جستجو  :", null, new ArrayList<>(Arrays.asList(
-                        new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقیقی ", new UIPageDto(null, "searchReal.xml"), new ArrayList<>()),
-                        new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقیقی) ", new UIPageDto(null, "advanceRealSearch.xml"), new ArrayList<>()),
-                        new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقوقی ", new UIPageDto(null, "searchLegal.xml"), new ArrayList<>()),
-                        new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقوقی) ", new UIPageDto(null, "advanceLegalSearch.xml"), new ArrayList<>())
-                ))),
-                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقیفی) ", new UIPageDto(null, "updateReal.xml"), null),
-                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقوقی) ", new UIPageDto(null, "updateLegal.xml"), null),
-                new MenuItmDto(MenuItemType.MENU, "ایجاد سپرده  :", null, new ArrayList<>(Arrays.asList(
-                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقیقی ", new UIPageDto(null, "savingAccountForReal.xml"), new ArrayList<>()),
-                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقوقی ", new UIPageDto(null, "savingAccountForLegal.xml"), new ArrayList<>())))),
-                new MenuItmDto(MenuItemType.MENU, "خدمات  :", null, new ArrayList<>(Arrays.asList(
+
+//    @RequestMapping(value = "/ws/menu/getUserMenu", method = RequestMethod.POST)
+//    public ResponseDto<MenuItmDto> getUserMenu() {
+//        MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<>(Arrays.asList(
+//                new MenuItmDto(MenuItemType.MENU, "کاربر جدید :", null, new ArrayList<>(Arrays.asList(
+//                        new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقیقی", new UIPageDto(null, "real.xml"), new ArrayList<>()),
+//                        new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقوقی", new UIPageDto(null, "legal.xml"), new ArrayList<>())))),
+//                new MenuItmDto(MenuItemType.MENU, "جستجو  :", null, new ArrayList<>(Arrays.asList(
+//                        new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقیقی ", new UIPageDto(null, "searchReal.xml"), new ArrayList<>()),
+//                        new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقیقی) ", new UIPageDto(null, "advanceRealSearch.xml"), new ArrayList<>()),
+//                        new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقوقی ", new UIPageDto(null, "searchLegal.xml"), new ArrayList<>()),
+//                        new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقوقی) ", new UIPageDto(null, "advanceLegalSearch.xml"), new ArrayList<>())
+//                ))),
+//                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقیفی) ", new UIPageDto(null, "updateReal.xml"), null),
+//                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقوقی) ", new UIPageDto(null, "updateLegal.xml"), null),
+//                new MenuItmDto(MenuItemType.MENU, "ایجاد سپرده  :", null, new ArrayList<>(Arrays.asList(
+//                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقیقی ", new UIPageDto(null, "savingAccountForReal.xml"), new ArrayList<>()),
+//                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقوقی ", new UIPageDto(null, "savingAccountForLegal.xml"), new ArrayList<>())))),
+//                new MenuItmDto(MenuItemType.MENU, "خدمات  :", null, new ArrayList<>(Arrays.asList(
+//
+//
+//                        new MenuItmDto(MenuItemType.PAGE, "برداشت  ", new UIPageDto(null, "withdrawal.xml"), new ArrayList<>()),
+//                        new MenuItmDto(MenuItemType.PAGE, "واریز ", new UIPageDto(null, "deposit.xml"), new ArrayList<>()),
+//                        new MenuItmDto(MenuItemType.PAGE, "انتفال وجه  ", new UIPageDto(null, "transferMoney.xml"), new ArrayList<>()),
+//                        new MenuItmDto(MenuItemType.PAGE, "موجودی  ", new UIPageDto(null, "showBalance.xml"), new ArrayList<>())
+//
+//                ))
+//
+//                ))
+//
+//        ));
+
+//        return new ResponseDto<>(ResponseStatus.Ok, menuItmDto, null, null);
+//    }
 
 
-                        new MenuItmDto(MenuItemType.PAGE, "برداشت  ", new UIPageDto(null, "withdrawal.xml"), new ArrayList<>()),
-                        new MenuItmDto(MenuItemType.PAGE, "واریز ", new UIPageDto(null, "deposit.xml"), new ArrayList<>()),
-                        new MenuItmDto(MenuItemType.PAGE, "انتفال وجه  ", new UIPageDto(null, "transferMoney.xml"), new ArrayList<>()),
-                        new MenuItmDto(MenuItemType.PAGE, "موجودی  ", new UIPageDto(null, "showBalance.xml"), new ArrayList<>())
-
-                ))
-
-                ))
-
-        ));
-
-        return new ResponseDto<>(ResponseStatus.Ok, menuItmDto, null, null);
-    }
-
-
-    @RequestMapping(value = "/ws/uipage/getPage", method = RequestMethod.POST)
+    @RequestMapping(value = "/pws/uipage/getPage", method = RequestMethod.POST)
     public ResponseDto<String> getPage(@RequestParam String name) throws IOException {
         return new ResponseDto<>(ResponseStatus.Ok, readFile(name, StandardCharsets.UTF_8), null, null);
     }
+    @RequestMapping(value = "/ws/login", method = RequestMethod.GET)
+    public ResponseDto<AfterLoginInfoDto> loginSuccess() {
 
+
+        AfterLoginInfoDto afterLoginInfoDto = new AfterLoginInfoDto();
+
+//        MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<>());
+        MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<MenuItmDto>(Arrays.asList(
+                new MenuItmDto(MenuItemType.MENU, "اکتیویتی", null, new ArrayList<MenuItmDto>(Arrays.asList(
+                        new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()))))
+        )));
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if(principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CREDITS_OPERATOR"))) {
+
+
+            menuItmDto.getChildren().get(0).getChildren().add(new MenuItmDto(MenuItemType.PAGE, "ثبت درخواست تسهیلات", new UIPageDto(null, "startTask"), new ArrayList<MenuItmDto>()));
+
+            afterLoginInfoDto.setMenu(menuItmDto);
+
+        }
+
+        else if(principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_BRANCH_MANAGER"))){
+
+            menuItmDto.getChildren().get(0).getChildren().add(new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<>()));
+
+            afterLoginInfoDto.setMenu(menuItmDto);
+
+
+        }
+        else if(principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CASH_DESK"))){
+
+            menuItmDto.getChildren().get(0).getChildren().add ( new MenuItmDto(null, null, null, new ArrayList<>(Arrays.asList(
+                    new MenuItmDto(MenuItemType.MENU, "کاربر جدید :", null, new ArrayList<>(Arrays.asList(
+                            new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقیقی", new UIPageDto(null, "real.xml"), new ArrayList<>()),
+                            new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقوقی", new UIPageDto(null, "legal.xml"), new ArrayList<>())))),
+                    new MenuItmDto(MenuItemType.MENU, "جستجو  :", null, new ArrayList<>(Arrays.asList(
+                            new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقیقی ", new UIPageDto(null, "searchReal.xml"), new ArrayList<>()),
+                            new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقیقی) ", new UIPageDto(null, "advanceRealSearch.xml"), new ArrayList<>()),
+                            new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقوقی ", new UIPageDto(null, "searchLegal.xml"), new ArrayList<>()),
+                            new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقوقی) ", new UIPageDto(null, "advanceLegalSearch.xml"), new ArrayList<>())
+                    ))),
+                    new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقیفی) ", new UIPageDto(null, "updateReal.xml"), null),
+                    new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقوقی) ", new UIPageDto(null, "updateLegal.xml"), null),
+                    new MenuItmDto(MenuItemType.MENU, "ایجاد سپرده  :", null, new ArrayList<>(Arrays.asList(
+                            new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقیقی ", new UIPageDto(null, "savingAccountForReal.xml"), new ArrayList<>()),
+                            new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقوقی ", new UIPageDto(null, "savingAccountForLegal.xml"), new ArrayList<>())))),
+                    new MenuItmDto(MenuItemType.MENU, "خدمات  :", null, new ArrayList<>(Arrays.asList(
+
+
+                            new MenuItmDto(MenuItemType.PAGE, "برداشت  ", new UIPageDto(null, "withdrawal.xml"), new ArrayList<>()),
+                            new MenuItmDto(MenuItemType.PAGE, "واریز ", new UIPageDto(null, "deposit.xml"), new ArrayList<>()),
+                            new MenuItmDto(MenuItemType.PAGE, "انتفال وجه  ", new UIPageDto(null, "transferMoney.xml"), new ArrayList<>()),
+                            new MenuItmDto(MenuItemType.PAGE, "موجودی  ", new UIPageDto(null, "showBalance.xml"), new ArrayList<>())
+
+                    ))
+
+                    ))
+
+            )));
+            menuItmDto.getChildren().get(0).getChildren().add(new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()));
+
+            afterLoginInfoDto.setMenu(menuItmDto);
+
+
+        }
+
+        return new ResponseDto(ResponseStatus.Ok, afterLoginInfoDto, null, null);
+    }
+
+    @RequestMapping(value = "/pws/error", method = RequestMethod.GET)
+    public ResponseDto error(@RequestParam String code) {
+        switch (code) {
+            case "loginFailure":
+                return new ResponseDto(ResponseStatus.Error, null, null, new ResponseException("نام کاربری یا کلمه عبور درست وارد نشده"));
+            default:
+                return new ResponseDto(ResponseStatus.Error, null, null, new ResponseException("خطای سیستمی رخ داده است"));
+        }
+    }
+
+
+
+    @RequestMapping(value = "/ws/startProcess", method = RequestMethod.POST)
+    public ResponseDto startProcess(@RequestBody TaskInputDto taskInputDto) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("customerNumber",taskInputDto.getCustomerNumber());
+        runtimeService.startProcessInstanceByKey("FacilitiesService", map);
+        return new ResponseDto(ResponseStatus.Ok, null, "فرایند آغاز شد.", null);
+
+    }
+
+
+    @RequestMapping(value = "/ws/getTasks", method = RequestMethod.POST)
+    public ResponseDto<List<TaskDto>> getTasks() {
+        List<Task> list = taskService.createTaskQuery().taskAssignee(getUsername()).list();
+        List<TaskDto> taskDtos = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            TaskDto taskDto = new TaskDto();
+            taskDto.setTaskId(list.get(i).getId());
+            taskDto.setName(list.get(i).getName());
+            taskDto.setFormKey(list.get(i).getFormKey());
+            taskDtos.add(taskDto);
+        }
+        return new ResponseDto(ResponseStatus.Ok, taskDtos, null, null);
+    }
+
+    @RequestMapping(value = "/pws/getUrlByFormKey", method = RequestMethod.POST)
+    public ResponseDto<String> getUrlByFormKey(@RequestParam String formKey) {
+
+        String url = "";
+
+        switch (formKey){
+            case "BranchManagerForm":
+                url = "managerApproveTask";
+                break;
+            case "CashDeskForm":
+                url = "cashApproveTask";
+                break;
+        }
+        return new ResponseDto(ResponseStatus.Ok, url, null, null);
+    }
+
+    @RequestMapping(value = "/ws/managerApproveTask", method = RequestMethod.POST)
+    public ResponseDto managerApproveTask(@RequestBody TaskDto taskDto) {
+        // Map<String,Object> map = new HashMap<>();
+        //   map.put("sanad",obj);
+        // taskService.complete(taskId, map);
+        taskService.complete(taskDto.getTaskId());
+        //taskService.setVariable(taskId,"sanad", obj);
+        return new ResponseDto(ResponseStatus.Ok, null, "تأیید شد.", null);
+    }
+
+    @RequestMapping(value = "/ws/cashApproveTask", method = RequestMethod.POST)
+    public ResponseDto cashApproveTask(@RequestBody TaskDto taskDto) {
+        // Map<String,Object> map = new HashMap<>();
+        //   map.put("sanad",obj);
+        // taskService.complete(taskId, map);
+        taskService.complete(taskDto.getTaskId());
+        //taskService.setVariable(taskId,"sanad", obj);
+        return new ResponseDto(ResponseStatus.Ok, null, "تأیید شد.", null);
+    }
+
+    @RequestMapping(value = "/ws/plan/getTaskByTaskId", method = RequestMethod.POST)
+    public ResponseDto<TaskInputDto> getTaskByTaskId(@RequestParam String taskId) {
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+
+        TaskInputDto taskInputDto = new TaskInputDto();
+        taskInputDto.setTaskId(task.getId());
+        Map<String, Object> taskLocalVariables = runtimeService.getVariables(task.getProcessInstanceId());
+        taskInputDto.setCustomerNumber(taskLocalVariables.get("cNumber").toString());
+        return new ResponseDto(ResponseStatus.Ok, taskInputDto, null, null);
+    }
 
     @RequestMapping(value = "/ws/saveLegalCustomer", method = RequestMethod.POST)
     public ResponseDto<String> saveLegalCustomer(@Valid @RequestBody LegalCustomerDto legalCustomerDto) {
@@ -267,6 +430,15 @@ public class CustomerController {
 
 
 
+    }
+
+    private String getUsername() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        } else {
+            return principal.toString();
+        }
     }
 
     String readFile(String path, Charset encoding)

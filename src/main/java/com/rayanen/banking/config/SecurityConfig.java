@@ -22,7 +22,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin123")).roles("ADMIN");
+                .withUser("credit").password(passwordEncoder().encode("credit123")).roles("CREDITS_OPERATOR")
+        .and()
+        .withUser("manager").password(passwordEncoder().encode("manager123")).roles("BRANCH_MANAGER")
+        .and()
+         .withUser("cash").password(passwordEncoder().encode("cash123")).roles("CASH_DESK")
+        ;
     }
 
     @Override
@@ -30,10 +35,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/a.png").permitAll()
-                .antMatchers(HttpMethod.GET, "/ws/login").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/ws/login")
+                .hasAnyRole("CREDITS_OPERATOR","BRANCH_MANAGER","CASH_DESK")
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/ws/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/ws/**")
+                .hasAnyRole("CREDITS_OPERATOR","BRANCH_MANAGER","CASH_DESK")
                 .antMatchers("/pws/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -48,6 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID");
 
         http.addFilterBefore(simpleCORSFilter, org.springframework.security.web.context.SecurityContextPersistenceFilter.class);
+
+
     }
 
     @Bean

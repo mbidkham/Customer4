@@ -5,7 +5,7 @@ package com.rayanen.banking.model.entity;
 import com.rayanen.banking.dto.AddressDto;
 import com.rayanen.banking.dto.SavingAccountDto;
 import com.rayanen.banking.utility.Annotations.MapTo;
-import com.rayanen.banking.utility.Annotations.NotMap;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

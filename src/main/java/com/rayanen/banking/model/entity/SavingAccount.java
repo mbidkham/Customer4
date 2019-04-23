@@ -1,5 +1,6 @@
 package com.rayanen.banking.model.entity;
 
+import com.rayanen.banking.dto.FacilitiesDto;
 import com.rayanen.banking.dto.TransactionDto;
 import com.rayanen.banking.utility.Annotations.MapTo;
 
@@ -26,6 +27,11 @@ public class SavingAccount {
     private Integer accountNumber;
 
     private BigDecimal balance = new BigDecimal(5000) ;
+
+    @OneToMany
+    @MapTo(targetEntity = FacilitiesDto.class)
+    private List<Facilities> facilities;
+
 
     private BigDecimal minBalance=balance;
 

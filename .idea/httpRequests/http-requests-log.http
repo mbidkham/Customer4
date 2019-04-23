@@ -1,3 +1,281 @@
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-23T072548.200.json
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=credit&pass=credit123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-23T064037.200.json
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-23T063801.200.json
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-23T063316.200.json
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-23T062735.200.json
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login?user=credit&pass=credit123
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-23T062203.200.json
+
+###
+
+POST http://localhost:8080/ws/login?user=credit&pass=credit123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-23T062119.200.json
+
+###
+
+POST http://localhost:8080/ws/login?user=cash&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=CASH_DESK&pass=cash123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-23T061541.401.html
+
+###
+
+POST http://localhost:8080/ws/login?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=CASH_DESK&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=CASH_DESK&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login?user=CASH_DESK&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login?user=CASH_DESK&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=CASH_DESK&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/login?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
+
+###
+
+POST http://localhost:8080/ws/saveRealCustomer?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
+
+###
+
+POST http://localhost:8080/ws/saveRealCustomer?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
+
+###
+
+POST http://localhost:8080/ws/login?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
+
+###
+
+POST http://localhost:8080/ws/login?user=user a&pass=admin123
+Accept: */*
+Cache-Control: no-cache
+
+{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
+
+###
+
 POST http://localhost:8080/ws/saveRealCustomer
 Accept: */*
 Cache-Control: no-cache
@@ -83,418 +361,6 @@ Content-Type: application/json
 {   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
 
 <> 2019-04-12T105121.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-12T103022.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-12T103004.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-12T102616.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-12T102526.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-12T100654.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane", "nationalCode": "1234" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",  "lastName":"bid", "nationalCode": "1234" , "address": {   "city": "tehran" }}
-
-<> 2019-04-12T093841.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",  "lastName":"bid", "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",  "lastName":"bid", "nationalCode": "1234" , "address": {   "city": "tehran" }}
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",  "lastName":"bid", "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",  "lastName":"bid", "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",  "lastName":"bid", "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",  "lastName":"bid", "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{"name":"ali","nationalCode":"123"}
-
-<> 2019-04-08T093004.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{"name":"ali","nationalCode":"123"}
-
-###
-
-POST http://localhost:8080/wa/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{"name":"ali","nationalCode":"123"}
-
-<> 2019-04-08T092237.404.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" } }
-
-<> 2019-04-08T125055.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-08T122737.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-07T112157.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-07T111554.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-07T111536.500.html
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {              "email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-<> 2019-04-07T105509.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" }, "contact": {              "email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" }] }  }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "1234" , "address": {   "city": "tehran" } }
-
-<> 2019-04-07T104825.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "123" }
-
-<> 2019-04-07T104727.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "123" }
-
-<> 2019-04-07T104709.500.html
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "123" }
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "mehrane",   "nationalCode": "123" }
 
 ###
 

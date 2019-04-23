@@ -2,7 +2,6 @@ package com.rayanen.banking.model.entity;
 
 
 
-import com.rayanen.banking.utility.Annotations.MapTo;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

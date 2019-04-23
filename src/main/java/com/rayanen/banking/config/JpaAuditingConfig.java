@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Configuration
 @EnableJpaAuditing(auditorAwareRef = "auditorProvider")
-public class JpaAuditingConfiguration {
+public class JpaAuditingConfig {
     @Bean
     public AuditorAware<String> auditorProvider(){
         return () -> Optional.ofNullable("byUser");
