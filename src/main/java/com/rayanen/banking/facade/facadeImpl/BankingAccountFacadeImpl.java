@@ -30,30 +30,32 @@ public class BankingAccountFacadeImpl implements BankingAccountFacade {
     }
     public Object saveNewRealCustomer(RealCustomerDto realCustomerDto){
 
-        RealCustomer realCustomer =  MapperClass.mapper(new RealCustomer(), realCustomerDto);
+        RealCustomer realCustomer=new RealCustomer();
+
+         realCustomer =  MapperClass.mapper(realCustomer, realCustomerDto);
 
         return bankingService.saveRealCustomer(realCustomer) ;
 
     }
-    public Object searchReal(SearchDto searchDto){
+    public Object searchReal(String nationalCode){
 
-       return bankingService.searchReal(searchDto);
-
-    }
-
-    public Object searchLegal(SearchDto searchDto){
-
-        return bankingService.searchLegal(searchDto);
+       return bankingService.searchReal(nationalCode);
 
     }
-    public Object advanceLegalSearch(AdvanceSearchDto advanceSearchDto){
 
-        return bankingService.advanceLegalSearch(advanceSearchDto);
+    public Object searchLegal(String legalCode){
+
+        return bankingService.searchLegal(legalCode);
+
+    }
+    public Object advanceLegalSearch(String name){
+
+        return bankingService.advanceLegalSearch(name);
     }
 
-    public Object advanceRealSearch(AdvanceSearchDto advanceSearchDto){
+    public Object advanceRealSearch(String name){
 
-        return bankingService.advanceRealSearch(advanceSearchDto);
+        return bankingService.advanceRealSearch(name);
     }
 
     public String updateLegal(LegalCustomerDto legalCustomerDto){

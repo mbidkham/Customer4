@@ -79,8 +79,10 @@ public class CustomerController {
 
     @RequestMapping(value = "/pws/uipage/getPage", method = RequestMethod.POST)
     public ResponseDto<String> getPage(@RequestParam String name) throws IOException {
-        return new ResponseDto<>(ResponseStatus.Ok, readFile(name, StandardCharsets.UTF_8), null, null);
+        return new ResponseDto(ResponseStatus.Ok, readFile(name, StandardCharsets.UTF_8), null, null);
     }
+
+
     @RequestMapping(value = "/ws/login", method = RequestMethod.GET)
     public ResponseDto<AfterLoginInfoDto> loginSuccess() {
 
@@ -92,6 +94,7 @@ public class CustomerController {
                 new MenuItmDto(MenuItemType.MENU, "اکتیویتی", null, new ArrayList<MenuItmDto>(Arrays.asList(
                         new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()))))
         )));
+        afterLoginInfoDto.setMenu(menuItmDto);
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if(principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CREDITS_OPERATOR"))) {
@@ -105,45 +108,44 @@ public class CustomerController {
 
         else if(principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_BRANCH_MANAGER"))){
 
-            menuItmDto.getChildren().get(0).getChildren().add(new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<>()));
 
-            afterLoginInfoDto.setMenu(menuItmDto);
+
+
 
 
         }
         else if(principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CASH_DESK"))){
 
-            menuItmDto.getChildren().get(0).getChildren().add ( new MenuItmDto(null, null, null, new ArrayList<>(Arrays.asList(
-                    new MenuItmDto(MenuItemType.MENU, "کاربر جدید :", null, new ArrayList<>(Arrays.asList(
-                            new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقیقی", new UIPageDto(null, "real.xml"), new ArrayList<>()),
-                            new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقوقی", new UIPageDto(null, "legal.xml"), new ArrayList<>())))),
-                    new MenuItmDto(MenuItemType.MENU, "جستجو  :", null, new ArrayList<>(Arrays.asList(
-                            new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقیقی ", new UIPageDto(null, "searchReal.xml"), new ArrayList<>()),
-                            new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقیقی) ", new UIPageDto(null, "advanceRealSearch.xml"), new ArrayList<>()),
-                            new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقوقی ", new UIPageDto(null, "searchLegal.xml"), new ArrayList<>()),
-                            new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقوقی) ", new UIPageDto(null, "advanceLegalSearch.xml"), new ArrayList<>())
-                    ))),
-                    new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقیفی) ", new UIPageDto(null, "updateReal.xml"), null),
-                    new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقوقی) ", new UIPageDto(null, "updateLegal.xml"), null),
-                    new MenuItmDto(MenuItemType.MENU, "ایجاد سپرده  :", null, new ArrayList<>(Arrays.asList(
-                            new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقیقی ", new UIPageDto(null, "savingAccountForReal.xml"), new ArrayList<>()),
-                            new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقوقی ", new UIPageDto(null, "savingAccountForLegal.xml"), new ArrayList<>())))),
-                    new MenuItmDto(MenuItemType.MENU, "خدمات  :", null, new ArrayList<>(Arrays.asList(
+            MenuItmDto menuItmDtoForCash = new MenuItmDto(null, null, null, new ArrayList<>(Arrays.asList(
+                new MenuItmDto(MenuItemType.MENU, "کاربر جدید :", null, new ArrayList<>(Arrays.asList(
+                        new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقیقی", new UIPageDto(null, "real"), new ArrayList<>()),
+                        new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقوقی", new UIPageDto(null, "legal"), new ArrayList<>())))),
+                new MenuItmDto(MenuItemType.MENU, "جستجو  :", null, new ArrayList<>(Arrays.asList(
+                        new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقیقی ", new UIPageDto(null, "searchReal"), new ArrayList<>()),
+                       new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقیقی) ", new UIPageDto(null, "advanceRealSearch"), new ArrayList<>()),
+                       new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقوقی ", new UIPageDto(null, "searchLegal"), new ArrayList<>()),
+                        new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقوقی) ", new UIPageDto(null, "advanceLegalSearch"), new ArrayList<>())
+                ))),
+                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقیفی) ", new UIPageDto(null, "updateReal"), null),
+              new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقوقی) ", new UIPageDto(null, "updateLegal"), null),
+              new MenuItmDto(MenuItemType.MENU, "ایجاد سپرده  :", null, new ArrayList<>(Arrays.asList(
+                       new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقیقی ", new UIPageDto(null, "savingAccountForReal"), new ArrayList<>()),
+                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقوقی ", new UIPageDto(null, "savingAccountForLegal"), new ArrayList<>())))),
+                    new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()),
+               new MenuItmDto(MenuItemType.MENU, "خدمات  :", null, new ArrayList<>(Arrays.asList(
+
+                      new MenuItmDto(MenuItemType.PAGE, "برداشت  ", new UIPageDto(null, "withdrawal"), new ArrayList<>()),
+                      new MenuItmDto(MenuItemType.PAGE, "واریز ", new UIPageDto(null, "deposit"), new ArrayList<>()),
+                       new MenuItmDto(MenuItemType.PAGE, "انتفال وجه  ", new UIPageDto(null, "transferMoney"), new ArrayList<>())
+
+            ))
+
+             ))
+
+      ));
 
 
-                            new MenuItmDto(MenuItemType.PAGE, "برداشت  ", new UIPageDto(null, "withdrawal.xml"), new ArrayList<>()),
-                            new MenuItmDto(MenuItemType.PAGE, "واریز ", new UIPageDto(null, "deposit.xml"), new ArrayList<>()),
-                            new MenuItmDto(MenuItemType.PAGE, "انتفال وجه  ", new UIPageDto(null, "transferMoney.xml"), new ArrayList<>()),
-                            new MenuItmDto(MenuItemType.PAGE, "موجودی  ", new UIPageDto(null, "showBalance.xml"), new ArrayList<>())
-
-                    ))
-
-                    ))
-
-            )));
-            menuItmDto.getChildren().get(0).getChildren().add(new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()));
-
-            afterLoginInfoDto.setMenu(menuItmDto);
+            afterLoginInfoDto.setMenu(menuItmDtoForCash);
 
 
         }
@@ -187,7 +189,7 @@ public class CustomerController {
         return new ResponseDto(ResponseStatus.Ok, taskDtos, null, null);
     }
 
-    @RequestMapping(value = "/pws/getUrlByFormKey", method = RequestMethod.POST)
+    @RequestMapping(value = "/ws/getUrlByFormKey", method = RequestMethod.POST)
     public ResponseDto<String> getUrlByFormKey(@RequestParam String formKey) {
 
         String url = "";
@@ -268,9 +270,9 @@ public class CustomerController {
 
 
     @RequestMapping(value = "/ws/searchLegal", method = RequestMethod.POST)
-    public ResponseDto<CustomerDto> searchLegal(@RequestBody SearchDto  searchDto) {
+    public ResponseDto<CustomerDto> searchLegal(@RequestParam String  legalCode) {
 
-       Object returnObj =  bankingAccountFacade.searchLegal(searchDto);
+       Object returnObj =  bankingAccountFacade.searchLegal(legalCode);
 
        if(returnObj instanceof  ResponseException)
            return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
@@ -282,9 +284,9 @@ public class CustomerController {
 
 
     @RequestMapping(value = "/ws/searchReal", method = RequestMethod.POST)
-    public ResponseDto searchReal(@RequestBody SearchDto searchDto) {
+    public ResponseDto searchReal(@RequestParam String nationalCode) {
 
-        Object returnObj =  bankingAccountFacade.searchReal(searchDto);
+        Object returnObj =  bankingAccountFacade.searchReal(nationalCode);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
@@ -296,9 +298,9 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/ws/advanceLegalSearch", method = RequestMethod.POST)
-    public ResponseDto advanceLegalSearch(@RequestBody AdvanceSearchDto advanceSearchDto) {
+    public ResponseDto advanceLegalSearch(@RequestBody String name) {
 
-        List returnObj =(List) bankingAccountFacade.advanceLegalSearch(advanceSearchDto);
+        List returnObj =(List) bankingAccountFacade.advanceLegalSearch(name);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
@@ -309,9 +311,9 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/ws/advanceRealSearch", method = RequestMethod.POST)
-    public ResponseDto advanceRealSearch(@RequestBody AdvanceSearchDto advanceSearchDto) {
+    public ResponseDto advanceRealSearch(@RequestBody String name) {
 
-        List returnObj = (List)bankingAccountFacade.advanceRealSearch(advanceSearchDto);
+        List returnObj = (List)bankingAccountFacade.advanceRealSearch(name);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
@@ -443,7 +445,7 @@ public class CustomerController {
 
     String readFile(String path, Charset encoding)
             throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(new ClassPathResource(path).getFile().getPath()));
+        byte[] encoded = Files.readAllBytes(Paths.get(new ClassPathResource(path + ".xml").getFile().getPath()));
         return new String(encoded, encoding);
     }
 }

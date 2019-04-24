@@ -90,10 +90,10 @@ public class BankingServiceImpl implements BankingService {
     }
 
 
-    public Object searchLegal(SearchDto searchDto) {
+    public Object searchLegal(String legalCode) {
 
 
-        LegalCustomer byLegalCode = legalCustomerDao.findByLegalCode((String) searchDto.getCode());
+        LegalCustomer byLegalCode = legalCustomerDao.findByLegalCode(legalCode);
 
 
         if (Objects.isNull(byLegalCode)) {
@@ -111,10 +111,10 @@ public class BankingServiceImpl implements BankingService {
     }
 
 
-    public Object searchReal(SearchDto searchDto) {
+    public Object searchReal(String nationalCode) {
 
 
-        RealCustomer byNationalCode = realCustomerDao.findByNationalCode((String) searchDto.getCode());
+        RealCustomer byNationalCode = realCustomerDao.findByNationalCode(nationalCode);
 
 
         if (Objects.isNull(byNationalCode)) {
@@ -131,9 +131,9 @@ public class BankingServiceImpl implements BankingService {
     }
 
 
-    public Object advanceLegalSearch(AdvanceSearchDto advanceSearchDto) {
+    public Object advanceLegalSearch(String name) {
 
-        List<LegalCustomer> byName = legalCustomerDao.findByName(advanceSearchDto.getName().toUpperCase());
+        List<LegalCustomer> byName = legalCustomerDao.findByName(name.toUpperCase());
 
         if (byName.size() == 0)
             return new ResponseException("پیدا نشد!");
@@ -143,9 +143,9 @@ public class BankingServiceImpl implements BankingService {
     }
 
 
-    public Object advanceRealSearch(AdvanceSearchDto advanceSearchDto) {
+    public Object advanceRealSearch(String name) {
 
-        List<RealCustomer> byName = realCustomerDao.findByName(advanceSearchDto.getName().toUpperCase());
+        List<RealCustomer> byName = realCustomerDao.findByName(name.toUpperCase());
 
         if (byName.size() != 0)
             return  byName;

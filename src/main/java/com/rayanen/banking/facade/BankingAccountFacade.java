@@ -8,13 +8,13 @@ public interface BankingAccountFacade {
 
      Object saveNewRealCustomer(RealCustomerDto realCustomerDto);
 
-     Object searchLegal(SearchDto searchDto);
+     Object searchLegal(String legalCode);
 
-     Object searchReal(SearchDto searchDto);
+     Object searchReal(String nationalCode);
 
-     Object advanceLegalSearch(AdvanceSearchDto advanceSearchDto);
+     Object advanceLegalSearch(String name);
 
-     Object advanceRealSearch(AdvanceSearchDto advanceSearchDto);
+     Object advanceRealSearch(String name);
 
      String updateLegal(LegalCustomerDto legalCustomerDto);
 

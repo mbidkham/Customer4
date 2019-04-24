@@ -2,14 +2,12 @@ package com.rayanen.banking.model.entity;
 
 import com.rayanen.banking.dto.PhoneType;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
-@Table( name = "BID_PHONES")
+@Table(name =" BID_PHONE")
 @Entity
 public class Phone {
+
     @Id
     @GeneratedValue
     private Integer id;
@@ -18,6 +16,16 @@ public class Phone {
 
     private PhoneType type;
 
+    @Version
+    private Integer version;
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 
     public Integer getId() {
         return id;

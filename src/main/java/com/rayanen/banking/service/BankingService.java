@@ -16,13 +16,13 @@ public interface BankingService {
 
      Object saveRealCustomer(RealCustomer realCustomer) ;
 
-     Object searchLegal(SearchDto searchDto) ;
+     Object searchLegal(String legalCode) ;
 
-     Object searchReal(SearchDto searchDto);
+     Object searchReal(String nationalCode);
 
-     Object advanceLegalSearch(AdvanceSearchDto advanceSearchDto) ;
+     Object advanceLegalSearch(String advanceSearchDto) ;
 
-     Object advanceRealSearch(AdvanceSearchDto advanceSearchDto) ;
+     Object advanceRealSearch(String advanceSearchDto) ;
 
      String updateLegal(LegalCustomerDto legalCustomerDto) ;
 

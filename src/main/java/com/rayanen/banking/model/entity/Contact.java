@@ -8,6 +8,7 @@ import com.rayanen.banking.utility.Annotations.MapTo;
 import javax.persistence.*;
 
 import java.util.List;
+
 @Table(name =" BID_CONTACT")
 @Entity
 public class Contact {
@@ -17,6 +18,7 @@ public class Contact {
     private Integer id;
 
     private String email;
+
 
     @OneToMany(cascade = CascadeType.ALL)
     @MapTo(targetEntity = PhoneDto.class)

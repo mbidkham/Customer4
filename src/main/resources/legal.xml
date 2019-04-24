@@ -5,7 +5,7 @@
         <input label="نام ارگان / شرکت  :" type="text" value="obj.name"/>
         <input label="کد ثبت ارگان / شرکت  :" type="text" value="obj.legalCode"/>
 
-            <input label="تلفن ثابت  :" type="text" value="obj.tel"/>
+            <input label="تلفن ثابت  :" type="text" value="obj.phone"/>
 
         <section label="آدرس: " >
             <input label="استان :" type="text" value="obj.address.province"/>

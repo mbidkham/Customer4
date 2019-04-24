@@ -83,14 +83,16 @@ public class MapperClass {
                 Class targetDestinationClass = mapTo.targetEntity();
                 Object mapToDestionationObj = targetDestinationClass.newInstance();
 
-                        List invokedMethod = (ArrayList)sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
-                        List mappedDtoList = new ArrayList();
+                ArrayList invokedMethod = new ArrayList();
+                invokedMethod= (ArrayList) sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
+                List mappedDtoList = new ArrayList();
 
-                        for (Object invokedList : invokedMethod) {
+                if(!invokedMethod.isEmpty()){
+                for (Object invokedList : invokedMethod) {
 
-                            mappedDtoList.add(MapperClass.mapper(mapToDestionationObj , invokedList));
-                        }
-
+                    mappedDtoList.add(MapperClass.mapper(mapToDestionationObj, invokedList));
+                }
+            }
                         for (Method destinationMethod : destinationMethods) {
 
                             if (destinationMethod.getName().startsWith("set") && Objects.equals(destinationMethod.getName(), "set" + sourceFieldsAndMethods.get(sourceFieldName).getName().substring(3))) {

@@ -22,11 +22,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("credit").password(passwordEncoder().encode("credit123")).roles("CREDITS_OPERATOR")
+                .withUser("credit").password(passwordEncoder().encode("1")).roles("CREDITS_OPERATOR")
         .and()
-        .withUser("manager").password(passwordEncoder().encode("manager123")).roles("BRANCH_MANAGER")
+        .withUser("manager").password(passwordEncoder().encode("1")).roles("BRANCH_MANAGER")
         .and()
-         .withUser("cash").password(passwordEncoder().encode("cash123")).roles("CASH_DESK")
+         .withUser("cash").password(passwordEncoder().encode("1")).roles("CASH_DESK")
         ;
     }
 
@@ -35,6 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
+               .antMatchers(HttpMethod.GET, "/a.png").permitAll()
                 .antMatchers(HttpMethod.GET, "/ws/login")
                 .hasAnyRole("CREDITS_OPERATOR","BRANCH_MANAGER","CASH_DESK")
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -54,8 +55,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .deleteCookies("JSESSIONID");
 
         http.addFilterBefore(simpleCORSFilter, org.springframework.security.web.context.SecurityContextPersistenceFilter.class);
-
-
     }
 
     @Bean
