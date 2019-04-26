@@ -1,6 +1,6 @@
 package com.rayanen.banking.dto;
 
-import com.rayanen.banking.model.entity.Phone;
+
 import com.rayanen.banking.model.entity.Transaction;
 import com.rayanen.banking.utility.Annotations.MapTo;
 import com.rayanen.banking.utility.Annotations.NotMap;

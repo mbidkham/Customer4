@@ -35,6 +35,10 @@
 
                 </comboBox>
             </table>
+            <table label="حساب ها " value="obj.savingAccounts">
+                <input label="شماره حساب " type="text" value="accountNumber" disable="true"/>
+                <input label="موجودی " type="text" value="balance" disable="true"/>
+            </table>
         </section>
 
 

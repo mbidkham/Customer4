@@ -6,22 +6,14 @@
         </webService>
     </init>
     <section title="مشخصات تسهیلات">
-        <input label="شماره تسک :" type="text" value="obj.taskId"/>
-        <input label="شماره مشتری :" type="text" value="obj.customerNumber"/>
-        <input label="مبلغ :" type="text" value="obj.amount"/>
-        <table label=" حساب های مشتری :" value="obj.savingAccountNumber">
-            <input label="شماره حساب" type="text"  />
-            <button label="واریز به حساب " >
-                <webService address="ws/getUrlByFormKey" value="resultObject">
 
-                </webService>
-            </button>
 
-        </table>
+            <input label="مبلغ :" type="text" value="obj.amount"/>
+            <input label="شماره حساب" type="text" value="accountNumber" />
 
         <actions>
-            <button label="واریز شد">
-                <webService address="ws/cashApproveTask" clearPageOnSuccess="true" >
+            <button label="واریز ">
+                <webService address="ws/deposit" clearPageOnSuccess="true" >
                     <webServiceInputObject name="obj"/>
                 </webService>
             </button>

@@ -30,11 +30,8 @@ public class BankingAccountFacadeImpl implements BankingAccountFacade {
     }
     public Object saveNewRealCustomer(RealCustomerDto realCustomerDto){
 
-        RealCustomer realCustomer=new RealCustomer();
 
-         realCustomer =  MapperClass.mapper(realCustomer, realCustomerDto);
-
-        return bankingService.saveRealCustomer(realCustomer) ;
+        return bankingService.saveRealCustomer(   MapperClass.mapper(new RealCustomer(), realCustomerDto)) ;
 
     }
     public Object searchReal(String nationalCode){
@@ -72,21 +69,21 @@ public class BankingAccountFacadeImpl implements BankingAccountFacade {
 
 
 
-    public Object savingAccountForReal(SearchDto searchDto){
+    public Object savingAccountForReal(String nationalCode){
 
-        return bankingService.savingAccountForReal(searchDto) ;
-
-    }
-
-    public Object savingAccountForLegal(SearchDto searchDto){
-
-        return bankingService.savingAccountForLegal(searchDto) ;
+        return bankingService.savingAccountForReal(nationalCode) ;
 
     }
 
-    public Object searchByAccountNumber(SearchDto searchDto){
+    public Object savingAccountForLegal(String legalCode){
 
-        return bankingService.searchByAccountNumber(searchDto);
+        return bankingService.savingAccountForLegal(legalCode) ;
+
+    }
+
+    public Object searchByAccountNumber(Integer accountNumber){
+
+        return bankingService.searchByAccountNumber(accountNumber);
 
     }
     public Object withdrawal(TransactionRequirementsDto transactionRequirementsDto){

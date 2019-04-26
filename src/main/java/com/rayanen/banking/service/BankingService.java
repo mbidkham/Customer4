@@ -28,11 +28,11 @@ public interface BankingService {
 
      String updateReal(RealCustomerDto realCustomerDto) ;
 
-     Object savingAccountForReal(SearchDto searchDto) ;
+     Object savingAccountForReal(String legalCode) ;
 
-     Object savingAccountForLegal(SearchDto searchDto) ;
+     Object savingAccountForLegal(String nationalCode) ;
 
-     Object searchByAccountNumber(SearchDto searchDto);
+     Object searchByAccountNumber(Integer accountNumber);
 
      Object deposit(TransactionRequirementsDto transactionRequirementsDto) ;
 

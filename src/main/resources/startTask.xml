@@ -2,7 +2,7 @@
 <page title="جستجو">
     <section title="درخواست تسهیلات" >
 
-        <input label="شماره مشتری:" type="text" value="obj.customerNumber"/>
+        <input label="شماره حساب مشتری :" type="text" value="obj.customerNumber"/>
         <input label="مبلغ:" type="text" value="obj.amount"/>
         <comboBox label="نوع تسهیلات " value="obj.type">
 

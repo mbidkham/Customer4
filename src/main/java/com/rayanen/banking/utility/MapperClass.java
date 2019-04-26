@@ -82,31 +82,30 @@ public class MapperClass {
                 MapTo mapTo = sourceFieldName.getAnnotation(MapTo.class);
                 Class targetDestinationClass = mapTo.targetEntity();
                 Object mapToDestionationObj = targetDestinationClass.newInstance();
-
-                ArrayList invokedMethod = new ArrayList();
-                invokedMethod= (ArrayList) sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
                 List mappedDtoList = new ArrayList();
+                if(Objects.nonNull(sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj))){
+                    ArrayList invokedMethod = (ArrayList) sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
+                    for (Object invokedList : invokedMethod) {
 
-                if(!invokedMethod.isEmpty()){
-                for (Object invokedList : invokedMethod) {
+                        mappedDtoList.add(MapperClass.mapper(mapToDestionationObj, invokedList));
+                    }
 
-                    mappedDtoList.add(MapperClass.mapper(mapToDestionationObj, invokedList));
-                }
-            }
-                        for (Method destinationMethod : destinationMethods) {
+                    for (Method destinationMethod : destinationMethods) {
 
-                            if (destinationMethod.getName().startsWith("set") && Objects.equals(destinationMethod.getName(), "set" + sourceFieldsAndMethods.get(sourceFieldName).getName().substring(3))) {
+                        if (destinationMethod.getName().startsWith("set") && Objects.equals(destinationMethod.getName(), "set" + sourceFieldsAndMethods.get(sourceFieldName).getName().substring(3))) {
 
-                                try {
+                            try {
 
-                                    destinationMethod.invoke(destinationObj, mappedDtoList);
+                                destinationMethod.invoke(destinationObj, mappedDtoList);
 
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
+
                         }
+                    }
+                }
+
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -123,11 +122,13 @@ public class MapperClass {
                             try {
 
                                 MapTo mapTo = sourceFieldName.getAnnotation(MapTo.class);
-                                Object invokedMethod = sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
-                                Class targetDestinationClass = mapTo.targetEntity();
-                                Object mapToDestinationObj = targetDestinationClass.newInstance();
-                                Object mappedObj = MapperClass.mapper(mapToDestinationObj , invokedMethod);
-                                destinationMethod.invoke(destinationObj, mappedObj);
+                                if (Objects.nonNull( sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj))) {
+                                    Object invokedMethod = sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
+                                    Class targetDestinationClass = mapTo.targetEntity();
+                                    Object mapToDestinationObj = targetDestinationClass.newInstance();
+                                    Object mappedObj = MapperClass.mapper(mapToDestinationObj, invokedMethod);
+                                    destinationMethod.invoke(destinationObj, mappedObj);
+                                }
 
                             } catch (Exception e) {
                                 e.printStackTrace();

@@ -178,9 +178,9 @@ public class BankingServiceImpl implements BankingService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public Object savingAccountForReal(SearchDto searchDto) {
+    public Object savingAccountForReal(String nationalCode) {
 
-        RealCustomer foundByNationalCode = realCustomerDao.findByNationalCode((String) searchDto.getCode());
+        RealCustomer foundByNationalCode = realCustomerDao.findByNationalCode( nationalCode);
 
 
         if (Objects.isNull(foundByNationalCode)) {
@@ -210,10 +210,10 @@ public class BankingServiceImpl implements BankingService {
     }
 
     @Transactional(rollbackOn = Exception.class)
-    public Object savingAccountForLegal(SearchDto searchDto) {
+    public Object savingAccountForLegal(String legalCode) {
 
 
-        LegalCustomer foundByLegalCode = legalCustomerDao.findByLegalCode((String) searchDto.getCode());
+        LegalCustomer foundByLegalCode = legalCustomerDao.findByLegalCode( legalCode);
 
         if (Objects.isNull(foundByLegalCode)) {
 
@@ -241,9 +241,9 @@ public class BankingServiceImpl implements BankingService {
         }
     }
 
-    public Object searchByAccountNumber(SearchDto searchDto) {
+    public Object searchByAccountNumber(Integer accountNumber) {
 
-        SavingAccount findByNum = savingAccountDao.findByAccountNumber((Integer) searchDto.getCode());
+        SavingAccount findByNum = savingAccountDao.findByAccountNumber(accountNumber);
 
         if (Objects.nonNull(findByNum))
 

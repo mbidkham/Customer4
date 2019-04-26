@@ -89,7 +89,7 @@ public class CustomerController {
 
         AfterLoginInfoDto afterLoginInfoDto = new AfterLoginInfoDto();
 
-//        MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<>());
+
         MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<MenuItmDto>(Arrays.asList(
                 new MenuItmDto(MenuItemType.MENU, "اکتیویتی", null, new ArrayList<MenuItmDto>(Arrays.asList(
                         new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()))))
@@ -131,7 +131,7 @@ public class CustomerController {
               new MenuItmDto(MenuItemType.MENU, "ایجاد سپرده  :", null, new ArrayList<>(Arrays.asList(
                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقیقی ", new UIPageDto(null, "savingAccountForReal"), new ArrayList<>()),
                         new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقوقی ", new UIPageDto(null, "savingAccountForLegal"), new ArrayList<>())))),
-                    new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()),
+
                new MenuItmDto(MenuItemType.MENU, "خدمات  :", null, new ArrayList<>(Arrays.asList(
 
                       new MenuItmDto(MenuItemType.PAGE, "برداشت  ", new UIPageDto(null, "withdrawal"), new ArrayList<>()),
@@ -140,7 +140,8 @@ public class CustomerController {
 
             ))
 
-             ))
+             ),
+                    new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()))
 
       ));
 
@@ -207,12 +208,22 @@ public class CustomerController {
 
     @RequestMapping(value = "/ws/managerApproveTask", method = RequestMethod.POST)
     public ResponseDto managerApproveTask(@RequestBody TaskDto taskDto) {
+        runtimeService.getVariables(taskDto.getTaskId()).put("accepted",true);
+        taskService.getVariables(taskDto.getTaskId()).put("accepted",true);
         // Map<String,Object> map = new HashMap<>();
         //   map.put("sanad",obj);
         // taskService.complete(taskId, map);
         taskService.complete(taskDto.getTaskId());
         //taskService.setVariable(taskId,"sanad", obj);
-        return new ResponseDto(ResponseStatus.Ok, null, "تأیید شد.", null);
+        return new ResponseDto<>(ResponseStatus.Ok, null, "تأیید شد.", null);
+    }
+
+    @RequestMapping (value = "ws/managerRejectTask" , method = RequestMethod.POST)
+    public ResponseDto managerRejectTask (@RequestBody TaskDto taskDto){
+
+        runtimeService.getVariables(taskDto.getTaskId()).put("accepted",false);
+        taskService.getVariables(taskDto.getTaskId()).put("accepted",false);
+        return new ResponseDto<>(ResponseStatus.Ok, null, "درخواست تسهیلات توسط مدیر شعبه رد شد.", null);
     }
 
     @RequestMapping(value = "/ws/cashApproveTask", method = RequestMethod.POST)
@@ -225,16 +236,19 @@ public class CustomerController {
         return new ResponseDto(ResponseStatus.Ok, null, "تأیید شد.", null);
     }
 
-    @RequestMapping(value = "/ws/plan/getTaskByTaskId", method = RequestMethod.POST)
+    @RequestMapping(value = "/ws/getTaskByTaskId", method = RequestMethod.POST)
     public ResponseDto<TaskInputDto> getTaskByTaskId(@RequestParam String taskId) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
 
         TaskInputDto taskInputDto = new TaskInputDto();
         taskInputDto.setTaskId(task.getId());
         Map<String, Object> taskLocalVariables = runtimeService.getVariables(task.getProcessInstanceId());
-        taskInputDto.setCustomerNumber(taskLocalVariables.get("cNumber").toString());
+        taskInputDto.setCustomerNumber(taskLocalVariables.get("customerNumber").toString());
         return new ResponseDto(ResponseStatus.Ok, taskInputDto, null, null);
     }
+
+
+
 
     @RequestMapping(value = "/ws/saveLegalCustomer", method = RequestMethod.POST)
     public ResponseDto<String> saveLegalCustomer(@Valid @RequestBody LegalCustomerDto legalCustomerDto) {
@@ -351,9 +365,9 @@ public class CustomerController {
 
 
     @RequestMapping(value = "/ws/savingAccountForReal", method = RequestMethod.POST)
-    public ResponseDto savingAccountForReal(@RequestBody SearchDto searchDto) {
+    public ResponseDto savingAccountForReal(@RequestParam String nationalCode) {
 
-        Object returnObj = bankingAccountFacade.savingAccountForReal(searchDto);
+        Object returnObj = bankingAccountFacade.savingAccountForReal(nationalCode);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
@@ -365,10 +379,10 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/ws/savingAccountForLegal", method = RequestMethod.POST)
-    public ResponseDto<RealCustomerDto> savingAccountForLegal( @RequestBody SearchDto searchDto) {
+    public ResponseDto<RealCustomerDto> savingAccountForLegal( @RequestParam String legalCode) {
 
 
-        Object returnObj = bankingAccountFacade.savingAccountForLegal(searchDto);
+        Object returnObj = bankingAccountFacade.savingAccountForLegal(legalCode);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
@@ -381,9 +395,9 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/ws/searchByAccountNumber", method = RequestMethod.POST)
-    public ResponseDto<CustomerDto> searchByAccountNumber(@RequestBody SearchDto searchDto) {
+    public ResponseDto<CustomerDto> searchByAccountNumber(@RequestBody Integer accountNumber) {
 
-        Object returnObj = bankingAccountFacade.searchByAccountNumber(searchDto);
+        Object returnObj = bankingAccountFacade.searchByAccountNumber(accountNumber);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);

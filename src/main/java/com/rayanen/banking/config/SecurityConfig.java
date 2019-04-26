@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .withUser("manager").password(passwordEncoder().encode("1")).roles("BRANCH_MANAGER")
         .and()
-         .withUser("cash").password(passwordEncoder().encode("1")).roles("CASH_DESK")
+         .withUser("cashier").password(passwordEncoder().encode("1")).roles("CASH_DESK")
         ;
     }
 
@@ -35,14 +35,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-               .antMatchers(HttpMethod.GET, "/a.png").permitAll()
-                .antMatchers(HttpMethod.GET, "/ws/login")
-                .hasAnyRole("CREDITS_OPERATOR","BRANCH_MANAGER","CASH_DESK")
+                .antMatchers(HttpMethod.GET, "/a.png").permitAll()
+                .antMatchers(HttpMethod.GET, "/ws/login").permitAll()
+//                .hasAnyRole("CREDITS_OPERATOR","BRANCH_MANAGER","CASH_DESK")
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/ws/**")
-                .hasAnyRole("CREDITS_OPERATOR","BRANCH_MANAGER","CASH_DESK")
+                .antMatchers(HttpMethod.POST, "/ws/**").permitAll()
+//                .hasAnyRole("CREDITS_OPERATOR","BRANCH_MANAGER","CASH_DESK")
                 .antMatchers("/pws/**").permitAll()
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/ws/login")

@@ -1,5 +1,10 @@
 package com.rayanen.banking.dto;
 
+import com.rayanen.banking.model.entity.SavingAccount;
+
+import java.math.BigDecimal;
+import java.util.List;
+
 public class TaskInputDto {
 
 
@@ -7,9 +12,25 @@ public class TaskInputDto {
 
     private String taskId;
 
+    private List<SavingAccount> savingAccounts;
 
+    private BigDecimal amount;
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public List<SavingAccount> getSavingAccounts() {
+        return savingAccounts;
+    }
+
+    public void setSavingAccounts(List<SavingAccount> savingAccounts) {
+        this.savingAccounts = savingAccounts;
+    }
 
     public String getTaskId() {
         return taskId;

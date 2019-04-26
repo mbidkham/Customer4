@@ -20,11 +20,11 @@ public interface BankingAccountFacade {
 
      String updateReal(RealCustomerDto realCustomerDto);
 
-     Object savingAccountForReal(SearchDto searchDto);
+     Object savingAccountForReal(String nationalCode);
 
-     Object savingAccountForLegal(SearchDto searchDto);
+     Object savingAccountForLegal(String legalCode);
 
-     Object searchByAccountNumber(SearchDto searchDto);
+     Object searchByAccountNumber(Integer accountNumber);
 
      Object withdrawal(TransactionRequirementsDto transactionRequirementsDto);
 
