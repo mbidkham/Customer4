@@ -1,7 +1,7 @@
 package com.rayanen.banking.dto;
 
 public enum PhoneType {
-            MOBILE("همراه"), TEL("ثابت");
+            MOBILE("همراه"), HOME("ثابت");
     private String value;
 
     PhoneType(String value) {

@@ -312,27 +312,30 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/ws/advanceLegalSearch", method = RequestMethod.POST)
-    public ResponseDto advanceLegalSearch(@RequestBody String name) {
+    public ResponseDto advanceLegalSearch(@RequestParam String name) {
 
-        List returnObj =(List) bankingAccountFacade.advanceLegalSearch(name);
+        Object returnObj = bankingAccountFacade.advanceLegalSearch(name);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
 
-        return new ResponseDto<>(ResponseStatus.Ok,  returnObj, null, null);
+        List returnObjList = (List)returnObj;
+
+        return new ResponseDto<>(ResponseStatus.Ok,  returnObjList, null, null);
 
 
     }
 
     @RequestMapping(value = "/ws/advanceRealSearch", method = RequestMethod.POST)
-    public ResponseDto advanceRealSearch(@RequestBody String name) {
+    public ResponseDto advanceRealSearch(@RequestParam String name) {
 
-        List returnObj = (List)bankingAccountFacade.advanceRealSearch(name);
+        Object returnObj = bankingAccountFacade.advanceRealSearch(name);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
 
-        return new ResponseDto<>(ResponseStatus.Ok,  returnObj, null, null);
+        List returnObjList = (List)returnObj;
+        return new ResponseDto<>(ResponseStatus.Ok,  returnObjList, null, null);
 
 
 
@@ -395,14 +398,14 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/ws/searchByAccountNumber", method = RequestMethod.POST)
-    public ResponseDto<CustomerDto> searchByAccountNumber(@RequestBody Integer accountNumber) {
+    public ResponseDto<SavingAccountDto> searchByAccountNumber(@RequestParam Integer accountNumber) {
 
         Object returnObj = bankingAccountFacade.searchByAccountNumber(accountNumber);
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
 
-        return new ResponseDto<>(ResponseStatus.Ok, (CustomerDto) returnObj, null, null);
+        return new ResponseDto(ResponseStatus.Ok, (SavingAccountDto) returnObj, null, null);
 
 
     }

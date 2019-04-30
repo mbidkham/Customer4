@@ -2,6 +2,7 @@ package com.rayanen.banking.dto;
 
 import com.rayanen.banking.model.entity.Phone;
 import com.rayanen.banking.utility.Annotations.MapTo;
+import com.rayanen.banking.utility.Annotations.NotMap;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,6 +13,7 @@ public class ContactDto {
     private Integer id;
 
     @Version
+
     private Integer version;
 
     private String email;

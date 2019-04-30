@@ -15,7 +15,7 @@ public class TransactionDto {
     @Id
     private Integer id;
 
-    @NotMap
+
     @Version
     private Integer version;
 

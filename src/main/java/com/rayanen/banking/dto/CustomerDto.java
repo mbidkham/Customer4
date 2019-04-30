@@ -19,7 +19,7 @@ public abstract class CustomerDto {
     private String name;
 
     @Version
-    @NotMap
+
     private Integer version;
 
     @MapTo(targetEntity = Address.class)

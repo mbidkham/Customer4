@@ -81,12 +81,14 @@ public class MapperClass {
             try {
                 MapTo mapTo = sourceFieldName.getAnnotation(MapTo.class);
                 Class targetDestinationClass = mapTo.targetEntity();
-                Object mapToDestionationObj = targetDestinationClass.newInstance();
+
                 List mappedDtoList = new ArrayList();
                 if(Objects.nonNull(sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj))){
-                    ArrayList invokedMethod = (ArrayList) sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
+                    Collection invokedMethod =  (Collection) sourceFieldsAndMethods.get(sourceFieldName).invoke(sourceObj);
+
                     for (Object invokedList : invokedMethod) {
 
+                        Object mapToDestionationObj = targetDestinationClass.newInstance();
                         mappedDtoList.add(MapperClass.mapper(mapToDestionationObj, invokedList));
                     }
 

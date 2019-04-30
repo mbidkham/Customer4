@@ -4,6 +4,7 @@ import com.rayanen.banking.dto.*;
 import com.rayanen.banking.model.dao.LegalCustomerDao;
 import com.rayanen.banking.model.dao.RealCustomerDao;
 import com.rayanen.banking.model.dao.SavingAccountDao;
+import com.rayanen.banking.model.dao.TransactionDao;
 import com.rayanen.banking.model.entity.LegalCustomer;
 import com.rayanen.banking.model.entity.RealCustomer;
 import com.rayanen.banking.model.entity.SavingAccount;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,11 +25,13 @@ public class BankingServiceImpl implements BankingService {
     private LegalCustomerDao legalCustomerDao;
     private RealCustomerDao realCustomerDao;
     private SavingAccountDao savingAccountDao;
+    private TransactionDao transactionDao;
 
-    public BankingServiceImpl(LegalCustomerDao legalCustomerDao , RealCustomerDao realCustomerDao , SavingAccountDao savingAccountDao ){
+    public BankingServiceImpl(LegalCustomerDao legalCustomerDao , RealCustomerDao realCustomerDao , SavingAccountDao savingAccountDao , TransactionDao transactionDao){
         this.legalCustomerDao = legalCustomerDao;
         this.realCustomerDao = realCustomerDao;
        this. savingAccountDao = savingAccountDao;
+       this.transactionDao = transactionDao;
     }
 
 
@@ -123,7 +127,8 @@ public class BankingServiceImpl implements BankingService {
 
         } else{
 
-            RealCustomerDto realCustomerDto =  MapperClass.mapper(new RealCustomerDto(), byNationalCode);
+            RealCustomerDto realCustomerDto = new RealCustomerDto();
+            MapperClass.mapper(realCustomerDto, byNationalCode);
 
             return realCustomerDto;
         }
@@ -134,21 +139,31 @@ public class BankingServiceImpl implements BankingService {
     public Object advanceLegalSearch(String name) {
 
         List<LegalCustomer> byName = legalCustomerDao.findByName(name.toUpperCase());
+        List<LegalCustomerDto> byNameMapped = new ArrayList<>();
+
+        for (LegalCustomer legalCustomer : byName){
+            byNameMapped.add(MapperClass.mapper(new LegalCustomerDto() , legalCustomer));
+        }
 
         if (byName.size() == 0)
             return new ResponseException("پیدا نشد!");
 
 
-        return byName ;
+        return byNameMapped ;
     }
 
 
     public Object advanceRealSearch(String name) {
 
         List<RealCustomer> byName = realCustomerDao.findByName(name.toUpperCase());
+        List<RealCustomerDto> byNameMapped = new ArrayList<>();
+
+        for (RealCustomer realCustomer : byName){
+            byNameMapped.add(MapperClass.mapper(new RealCustomerDto() , realCustomer));
+        }
 
         if (byName.size() != 0)
-            return  byName;
+            return  byNameMapped;
 
         return new ResponseException("پیدا نشد!");
     }
@@ -157,9 +172,9 @@ public class BankingServiceImpl implements BankingService {
     public String updateLegal(LegalCustomerDto legalCustomerDto) {
 
 
-        LegalCustomer byLegalCode = legalCustomerDao.findByLegalCode(legalCustomerDto.getLegalCode());
 
-        legalCustomerDao.save( MapperClass.mapper(  byLegalCode , legalCustomerDto));
+
+        legalCustomerDao.save( MapperClass.mapper(  new LegalCustomer() , legalCustomerDto));
 
         return "با موفقیت ویرایش شد !";
 
@@ -168,10 +183,13 @@ public class BankingServiceImpl implements BankingService {
 
     @Transactional(rollbackOn = Exception.class)
     public String updateReal(RealCustomerDto realCustomerDto) {
+//
+//        RealCustomer byReal = realCustomerDao.findByNationalCode( realCustomerDto.getNationalCode());
+//
 
-        RealCustomer byReal = realCustomerDao.findByNationalCode( realCustomerDto.getNationalCode());
 
-        realCustomerDao.save( MapperClass.mapper(byReal , realCustomerDto ));
+        realCustomerDao.save(MapperClass.mapper ( new RealCustomer() , realCustomerDto )) ;
+
 
         return "با موفقیت ویرایش شد !";
 
@@ -205,6 +223,7 @@ public class BankingServiceImpl implements BankingService {
             return" سپرده جدید با شماره حساب " + savingAccount.getAccountNumber() +"  برای شما ایجاد شد " ;
 
         }
+
 
 
     }
@@ -245,9 +264,11 @@ public class BankingServiceImpl implements BankingService {
 
         SavingAccount findByNum = savingAccountDao.findByAccountNumber(accountNumber);
 
+        SavingAccountDto savingAccountDto = new SavingAccountDto();
+
         if (Objects.nonNull(findByNum))
 
-            return  findByNum ;
+            return  MapperClass.mapper(savingAccountDto, findByNum) ;
 
         return  new ResponseException("پیدا نشد");
 
@@ -270,8 +291,15 @@ public class BankingServiceImpl implements BankingService {
 
             savingAccount.getTransactions().add(depositTransaction);
 
+
+            transactionDao.save(depositTransaction);
+
+            savingAccountDao.save(savingAccount);
+
+
             return  "واریز انجام شد ";
         }
+
         return new ResponseException("پیدا نشد ! ");
 
 
@@ -284,11 +312,12 @@ public class BankingServiceImpl implements BankingService {
 
         SavingAccount savingAccount = savingAccountDao.findByAccountNumber(transactionRequirementsDto.getSavingAccountNumber());
 
+
         if (Objects.nonNull(savingAccount)) {
 
             if (savingAccount.getBalance().compareTo(transactionRequirementsDto.getAmount()) >= 0) {
 
-                savingAccount.getBalance().subtract(transactionRequirementsDto.getAmount());
+                savingAccount.setBalance( savingAccount.getBalance().subtract(transactionRequirementsDto.getAmount()) );
 
                 Transaction depositTransaction = new Transaction();
 
@@ -298,9 +327,15 @@ public class BankingServiceImpl implements BankingService {
 
                 savingAccount.getTransactions().add(depositTransaction);
 
+                transactionDao.save(depositTransaction);
+
+
+
                 if (savingAccount.getBalance().compareTo(savingAccount.getMinBalance()) < 0)
 
                     savingAccount.setMinBalance(savingAccount.getBalance());
+
+                    savingAccountDao.save(savingAccount);
 
                 return "برداشت  وجه با موفقیت انجام شد ";
 
@@ -322,7 +357,7 @@ public class BankingServiceImpl implements BankingService {
 
             if (sourceAccount.getBalance().compareTo(transferMoneyDto.getAmount()) >= 0) {
 
-                sourceAccount.getBalance().subtract(transferMoneyDto.getAmount());
+                sourceAccount.setBalance(sourceAccount.getBalance().subtract(transferMoneyDto.getAmount()));
 
                 if (sourceAccount.getBalance().compareTo(sourceAccount.getMinBalance()) < 0)
 
@@ -332,14 +367,27 @@ public class BankingServiceImpl implements BankingService {
 
                 Transaction transferTransaction = new Transaction();
 
+                Transaction depositTransaction = new Transaction();
+
                 transferTransaction.setAmount(transferMoneyDto.getAmount());
+
+                depositTransaction.setAmount(transferMoneyDto.getAmount());
+
+                depositTransaction.setTransactionType(TransactionType.TRANSFER);
 
                 transferTransaction.setTransactionType(TransactionType.TRANSFER);
 
                 sourceAccount.getTransactions().add(transferTransaction);
 
-                targetAccount.getTransactions().add(transferTransaction);
+                targetAccount.getTransactions().add(depositTransaction);
 
+                transactionDao.save(depositTransaction);
+
+                transactionDao.save(transferTransaction);
+
+                savingAccountDao.save(sourceAccount);
+
+                savingAccountDao.save(targetAccount);
 
                 return "انتقال وجه با موفقیت انجام شد ";
             }

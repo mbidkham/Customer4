@@ -14,13 +14,14 @@ import java.util.List;
 @Component
 public class ProfitManagerController {
 
+
     Logger logger = LoggerFactory.getLogger(ProfitManagerController.class);
     private SavingAccountDao savingAccountDao;
 
     public ProfitManagerController(SavingAccountDao savingAccountDao) {
         this.savingAccountDao = savingAccountDao;
     }
-//
+//هر  روز
 //    @Scheduled(cron = "59 * * * * *")
 //    public void profitManager() {
 //        List<SavingAccount> savingAccounts = savingAccountDao.findAll();
@@ -36,7 +37,7 @@ public class ProfitManagerController {
 //
 //
 //    }
-//
+//هر ماه
 //    @Scheduled(cron = "40 * * * * *")
 //    public void minBalanceSetting() {
 //

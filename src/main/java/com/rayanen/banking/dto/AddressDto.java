@@ -1,5 +1,7 @@
 package com.rayanen.banking.dto;
 
+import com.rayanen.banking.utility.Annotations.NotMap;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Version;
@@ -17,6 +19,7 @@ public class AddressDto {
     private String province;
 
     private String postalCode;
+
 
     @Version
     private Integer version;

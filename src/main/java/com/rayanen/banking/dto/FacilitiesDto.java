@@ -1,5 +1,7 @@
 package com.rayanen.banking.dto;
 
+import com.rayanen.banking.utility.Annotations.NotMap;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -10,6 +12,7 @@ public class FacilitiesDto {
     private Integer id;
 
     @Version
+
     private Integer version;
 
     private BigDecimal amount;

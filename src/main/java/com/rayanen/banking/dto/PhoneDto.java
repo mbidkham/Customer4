@@ -13,7 +13,7 @@ public class PhoneDto {
     @Id
     private Integer id;
 
-    @NotMap
+
     @Version
     private  Integer version;
 

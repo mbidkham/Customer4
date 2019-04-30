@@ -40,6 +40,14 @@ public class SavingAccount {
     private BigDecimal monthlyProfit = new BigDecimal(0);
 
 
+    public List<Facilities> getFacilities() {
+        return facilities;
+    }
+
+    public void setFacilities(List<Facilities> facilities) {
+        this.facilities = facilities;
+    }
+
     public BigDecimal getSumOfMinBalances() {
         return sumOfMinBalances;
     }

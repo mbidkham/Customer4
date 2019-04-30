@@ -1,12 +1,14 @@
 package com.rayanen.banking.dto;
 
 
+import com.rayanen.banking.model.entity.Facilities;
 import com.rayanen.banking.model.entity.Transaction;
 import com.rayanen.banking.utility.Annotations.MapTo;
 import com.rayanen.banking.utility.Annotations.NotMap;
 
 import javax.persistence.Id;
 
+import javax.persistence.OneToMany;
 import javax.persistence.Version;
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,11 +19,15 @@ public class SavingAccountDto {
     private Integer id;
 
     @Version
-    @NotMap
+
     private Integer version;
 
     @MapTo(targetEntity = Transaction.class)
     private List<TransactionDto> transactions;
+
+    @OneToMany
+    @MapTo(targetEntity = Facilities.class)
+    private List<FacilitiesDto> facilities;
 
     private Integer accountNumber;
 
@@ -33,6 +39,15 @@ public class SavingAccountDto {
 
     private BigDecimal monthlyProfit = new BigDecimal(0);
 
+
+
+    public List<FacilitiesDto> getFacilities() {
+        return facilities;
+    }
+
+    public void setFacilities(List<FacilitiesDto> facilities) {
+        this.facilities = facilities;
+    }
 
     public BigDecimal getSumOfMinBalances() {
         return sumOfMinBalances;
