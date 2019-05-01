@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <page title="  برداشت">
 
-        <input label="شماره حساب:" value="obj.accountNumber" type="text"/>
+        <input label="شماره حساب:" value="obj.savingAccountNumber" type="text"/>
         <input label="مبلغ:" value="obj.amount" type="text"/>
 
         <actions>

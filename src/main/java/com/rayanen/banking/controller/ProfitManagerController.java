@@ -16,6 +16,7 @@ public class ProfitManagerController {
 
 
     Logger logger = LoggerFactory.getLogger(ProfitManagerController.class);
+
     private SavingAccountDao savingAccountDao;
 
     public ProfitManagerController(SavingAccountDao savingAccountDao) {

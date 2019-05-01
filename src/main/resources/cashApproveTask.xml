@@ -9,11 +9,11 @@
 
 
             <input label="مبلغ :" type="text" value="obj.amount"/>
-            <input label="شماره حساب" type="text" value="accountNumber" />
+            <input label="شماره حساب" type="text" value="customerNumber" />
 
         <actions>
             <button label="واریز ">
-                <webService address="ws/deposit" clearPageOnSuccess="true" >
+                <webService address="ws/cashApproveTask" clearPageOnSuccess="true" >
                     <webServiceInputObject name="obj"/>
                 </webService>
             </button>

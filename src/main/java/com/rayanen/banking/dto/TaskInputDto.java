@@ -8,13 +8,21 @@ import java.util.List;
 public class TaskInputDto {
 
 
-    private String customerNumber;
+    private Integer customerNumber;
 
     private String taskId;
 
-    private List<SavingAccount> savingAccounts;
-
     private BigDecimal amount;
+
+    private  FacilityType facilityType;
+
+    public FacilityType getFacilityType() {
+        return facilityType;
+    }
+
+    public void setFacilityType(FacilityType facilityType) {
+        this.facilityType = facilityType;
+    }
 
     public BigDecimal getAmount() {
         return amount;
@@ -24,13 +32,6 @@ public class TaskInputDto {
         this.amount = amount;
     }
 
-    public List<SavingAccount> getSavingAccounts() {
-        return savingAccounts;
-    }
-
-    public void setSavingAccounts(List<SavingAccount> savingAccounts) {
-        this.savingAccounts = savingAccounts;
-    }
 
     public String getTaskId() {
         return taskId;
@@ -40,11 +41,11 @@ public class TaskInputDto {
         this.taskId = taskId;
     }
 
-    public String getCustomerNumber() {
+    public Integer getCustomerNumber() {
         return customerNumber;
     }
 
-    public void setCustomerNumber(String customerNumber) {
+    public void setCustomerNumber(Integer customerNumber) {
         this.customerNumber = customerNumber;
     }
 }

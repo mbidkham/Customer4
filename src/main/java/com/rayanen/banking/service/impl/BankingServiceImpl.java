@@ -1,5 +1,6 @@
 package com.rayanen.banking.service.impl;
 
+import com.rayanen.banking.controller.ProfitManagerController;
 import com.rayanen.banking.dto.*;
 import com.rayanen.banking.model.dao.LegalCustomerDao;
 import com.rayanen.banking.model.dao.RealCustomerDao;
@@ -11,6 +12,8 @@ import com.rayanen.banking.model.entity.SavingAccount;
 import com.rayanen.banking.model.entity.Transaction;
 import com.rayanen.banking.service.BankingService;
 import com.rayanen.banking.utility.MapperClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 
@@ -21,6 +24,8 @@ import java.util.Objects;
 
 @Service
 public class BankingServiceImpl implements BankingService {
+
+    Logger logger = LoggerFactory.getLogger(ProfitManagerController.class);
 
     private LegalCustomerDao legalCustomerDao;
     private RealCustomerDao realCustomerDao;
@@ -46,16 +51,21 @@ public class BankingServiceImpl implements BankingService {
 
                 legalCustomerDao.save(legalCustomer);
 
+                logger.info("createdLegal");
+
                return "اطلاعات ذخیره شد.";
+
 
             } else {
 
+                logger.error("duplicateUser");
                 return new ResponseException("قبلا ثبت نام کرده اید");
 
             }
 
         } else {
 
+            logger.error("NullFields");
             return new ResponseException("کد ثبت شرکت/ارگان یا اسم را وارد نکرده اید ");
 
 
@@ -74,17 +84,18 @@ public class BankingServiceImpl implements BankingService {
            if (Objects.isNull(realCustomerDao.findByNationalCode(realCustomer.getNationalCode()))) {
              realCustomerDao.save(realCustomer);
 
+               logger.info("createdReal");
                return "اطلاعات ذخیره شد.";
 
            } else {
 
-
+               logger.error("duplicatePerson");
                return new ResponseException("قبلا ثبت نام کرده اید");
 
          }
 
         } else {
-
+            logger.error("NullFields");
               return new ResponseException("کد ملی یا اسم را وارد نکرده اید ");
 
 
@@ -102,12 +113,16 @@ public class BankingServiceImpl implements BankingService {
 
         if (Objects.isNull(byLegalCode)) {
 
+            logger.error("notFound");
+
             return  new ResponseException("پیدا نشد!");
 
 
         } else{
 
             LegalCustomerDto legalCustomerDto =  MapperClass.mapper(new LegalCustomerDto(), byLegalCode);
+
+            logger.info("returnedLegalCustomerFound");
 
             return  legalCustomerDto ;
         }
@@ -123,12 +138,17 @@ public class BankingServiceImpl implements BankingService {
 
         if (Objects.isNull(byNationalCode)) {
 
+            logger.error("notFound");
+
             return new ResponseException("پیدا نشد!");
 
         } else{
 
             RealCustomerDto realCustomerDto = new RealCustomerDto();
+
             MapperClass.mapper(realCustomerDto, byNationalCode);
+
+            logger.info("returnedRealCustomerFound");
 
             return realCustomerDto;
         }
@@ -176,6 +196,8 @@ public class BankingServiceImpl implements BankingService {
 
         legalCustomerDao.save( MapperClass.mapper(  new LegalCustomer() , legalCustomerDto));
 
+        logger.info("updatedSuccessfully");
+
         return "با موفقیت ویرایش شد !";
 
 
@@ -183,13 +205,11 @@ public class BankingServiceImpl implements BankingService {
 
     @Transactional(rollbackOn = Exception.class)
     public String updateReal(RealCustomerDto realCustomerDto) {
-//
-//        RealCustomer byReal = realCustomerDao.findByNationalCode( realCustomerDto.getNationalCode());
-//
 
 
         realCustomerDao.save(MapperClass.mapper ( new RealCustomer() , realCustomerDto )) ;
 
+        logger.info("updatedSuccessfully");
 
         return "با موفقیت ویرایش شد !";
 
@@ -203,6 +223,7 @@ public class BankingServiceImpl implements BankingService {
 
         if (Objects.isNull(foundByNationalCode)) {
 
+            logger.error("NotFound");
             return  new ResponseException("پیدا نشد!");
 
         } else {
@@ -220,6 +241,8 @@ public class BankingServiceImpl implements BankingService {
 
             realCustomerDao.save(foundByNationalCode);
 
+            logger.info("newSavingAccountCreated");
+
             return" سپرده جدید با شماره حساب " + savingAccount.getAccountNumber() +"  برای شما ایجاد شد " ;
 
         }
@@ -236,6 +259,7 @@ public class BankingServiceImpl implements BankingService {
 
         if (Objects.isNull(foundByLegalCode)) {
 
+            logger.error("notFound");
             return new ResponseException("پیدا نشد!");
 
 
@@ -254,6 +278,9 @@ public class BankingServiceImpl implements BankingService {
             savingAccountDao.save(savingAccount);
 
             legalCustomerDao.save(foundByLegalCode);
+
+            logger.info("newSavingAccountCreated");
+
 
             return" سپرده جدید با شماره حساب " + savingAccount.getAccountNumber() +"  برای شما ایجاد شد ";
 
@@ -296,10 +323,13 @@ public class BankingServiceImpl implements BankingService {
 
             savingAccountDao.save(savingAccount);
 
+            logger.info("depositSuccessfully");
+
 
             return  "واریز انجام شد ";
         }
 
+        logger.error("accountDoesntExist");
         return new ResponseException("پیدا نشد ! ");
 
 
@@ -337,10 +367,12 @@ public class BankingServiceImpl implements BankingService {
 
                     savingAccountDao.save(savingAccount);
 
+                logger.info("withdrawalSuccessfully");
+
                 return "برداشت  وجه با موفقیت انجام شد ";
 
             } else
-
+                logger.error("notEnoughBalance");
                 return  new ResponseException("موجودی کافی نیست ");
 
         }

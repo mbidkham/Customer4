@@ -1,15 +1,10 @@
 <?xml version="1.0"?>
 <page title="  واریز ">
-    <section title="جستجو ">
-        <search label="شماره حساب"
-                singleResultSearch="ws/searchByAccountNumber"
-                singleResultSearchInputkey="accountNumber"
-                selectedResultKey="accountNumber"
-                value="obj">
-        </search>
+    <section title="واریز ">
 
-
+        <input label="شماره حساب:" value="obj.savingAccountNumber" type="text"/>
         <input label="مبلغ:" value="obj.amount" type="text"/>
+
         <actions>
             <button label="تایید">
                 <webService address="ws/withdrawal" clearPageOnSuccess="true">

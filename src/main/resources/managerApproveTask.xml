@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <page title="تأیید">
     <init>
-        <webService address="ws/plan/getTaskByTaskId" value="obj" >
+        <webService address="ws/getTaskByTaskId" value="obj" >
             <webServiceInput name="taskId" ref="urlParams.taskId"/>
         </webService>
     </init>
     <section title="مشخصات تسهیلات">
 
         <input label="شماره تسک :" type="text" value="obj.taskId"/>
-        <input label="شماره مشتری :" type="text" value="obj.customerNumber"/>
+        <input label="شماره حساب :" type="text" value="obj.customerNumber"/>
         <input label="مبلغ :" type="text" value="obj.amount"/>
 
         <actions>

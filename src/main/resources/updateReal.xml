@@ -23,7 +23,7 @@
             <input label="خیابان :" type="text" value="obj.address.street" />
             <input label="کد پستی :" type="text" value="obj.address.postalCode" />
         </section>
-        <table label=" تماس :" value="obj.contact.tel">
+        <table label=" تماس :" value="obj.contact.tel" type="editable">
             <input label="تلفن " type="text" value="number" />
             <comboBox label="نوع " value="type" >
                 <comboItem itemLabel="ثابت " itemValue="MOBILE"/>

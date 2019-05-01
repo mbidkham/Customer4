@@ -17,9 +17,10 @@
         <input label="نام :" type="text" value="obj.name" disable="true"/>
         <input label="نام خانوادگی  :" type="text" value="obj.lastName" disable="true"/>
         <input label="کد ملی  :" type="text" value="obj.nationalCode" disable="true"/>
-        <tabble label="لیست سپرده ها :" value="obj.savingAccounts">
-            <input label="شماره حساب شما :" type="text" value="accountNumber" disable="true"/>
-        </tabble>
+        <table label="حساب ها " value="obj.savingAccounts">
+            <input label="شماره حساب " type="text" value="accountNumber" disable="true"/>
+            <input label="موجودی " type="text" value="balance" disable="true"/>
+        </table>
 
         <actions>
             <button label="ایجاد سپرده جدید">

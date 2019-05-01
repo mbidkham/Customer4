@@ -5,6 +5,7 @@ import com.rayanen.banking.dto.*;
 import com.rayanen.banking.dto.ResponseStatus;
 import com.rayanen.banking.facade.BankingAccountFacade;
 
+import com.rayanen.banking.model.entity.RealCustomer;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
@@ -41,42 +42,6 @@ public class CustomerController {
     private RuntimeService runtimeService;
 
 
-
-//    @RequestMapping(value = "/ws/menu/getUserMenu", method = RequestMethod.POST)
-//    public ResponseDto<MenuItmDto> getUserMenu() {
-//        MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<>(Arrays.asList(
-//                new MenuItmDto(MenuItemType.MENU, "کاربر جدید :", null, new ArrayList<>(Arrays.asList(
-//                        new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقیقی", new UIPageDto(null, "real.xml"), new ArrayList<>()),
-//                        new MenuItmDto(MenuItemType.PAGE, "ثبت کاربر حقوقی", new UIPageDto(null, "legal.xml"), new ArrayList<>())))),
-//                new MenuItmDto(MenuItemType.MENU, "جستجو  :", null, new ArrayList<>(Arrays.asList(
-//                        new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقیقی ", new UIPageDto(null, "searchReal.xml"), new ArrayList<>()),
-//                        new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقیقی) ", new UIPageDto(null, "advanceRealSearch.xml"), new ArrayList<>()),
-//                        new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقوقی ", new UIPageDto(null, "searchLegal.xml"), new ArrayList<>()),
-//                        new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقوقی) ", new UIPageDto(null, "advanceLegalSearch.xml"), new ArrayList<>())
-//                ))),
-//                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقیفی) ", new UIPageDto(null, "updateReal.xml"), null),
-//                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقوقی) ", new UIPageDto(null, "updateLegal.xml"), null),
-//                new MenuItmDto(MenuItemType.MENU, "ایجاد سپرده  :", null, new ArrayList<>(Arrays.asList(
-//                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقیقی ", new UIPageDto(null, "savingAccountForReal.xml"), new ArrayList<>()),
-//                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقوقی ", new UIPageDto(null, "savingAccountForLegal.xml"), new ArrayList<>())))),
-//                new MenuItmDto(MenuItemType.MENU, "خدمات  :", null, new ArrayList<>(Arrays.asList(
-//
-//
-//                        new MenuItmDto(MenuItemType.PAGE, "برداشت  ", new UIPageDto(null, "withdrawal.xml"), new ArrayList<>()),
-//                        new MenuItmDto(MenuItemType.PAGE, "واریز ", new UIPageDto(null, "deposit.xml"), new ArrayList<>()),
-//                        new MenuItmDto(MenuItemType.PAGE, "انتفال وجه  ", new UIPageDto(null, "transferMoney.xml"), new ArrayList<>()),
-//                        new MenuItmDto(MenuItemType.PAGE, "موجودی  ", new UIPageDto(null, "showBalance.xml"), new ArrayList<>())
-//
-//                ))
-//
-//                ))
-//
-//        ));
-
-//        return new ResponseDto<>(ResponseStatus.Ok, menuItmDto, null, null);
-//    }
-
-
     @RequestMapping(value = "/pws/uipage/getPage", method = RequestMethod.POST)
     public ResponseDto<String> getPage(@RequestParam String name) throws IOException {
         return new ResponseDto(ResponseStatus.Ok, readFile(name, StandardCharsets.UTF_8), null, null);
@@ -90,16 +55,15 @@ public class CustomerController {
         AfterLoginInfoDto afterLoginInfoDto = new AfterLoginInfoDto();
 
 
-        MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<MenuItmDto>(Arrays.asList(
-                new MenuItmDto(MenuItemType.MENU, "اکتیویتی", null, new ArrayList<MenuItmDto>(Arrays.asList(
-                        new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()))))
-        )));
-        afterLoginInfoDto.setMenu(menuItmDto);
+
         UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         if(principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CREDITS_OPERATOR"))) {
 
-
+            MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<MenuItmDto>(Arrays.asList(
+                    new MenuItmDto(MenuItemType.MENU, "منو ", null, new ArrayList<MenuItmDto>(Arrays.asList(
+                            new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasksCredit"), new ArrayList<MenuItmDto>()))))
+            )));
             menuItmDto.getChildren().get(0).getChildren().add(new MenuItmDto(MenuItemType.PAGE, "ثبت درخواست تسهیلات", new UIPageDto(null, "startTask"), new ArrayList<MenuItmDto>()));
 
             afterLoginInfoDto.setMenu(menuItmDto);
@@ -108,7 +72,13 @@ public class CustomerController {
 
         else if(principal.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_BRANCH_MANAGER"))){
 
+            MenuItmDto menuItmDto = new MenuItmDto(null, null, null, new ArrayList<MenuItmDto>(Arrays.asList(
+                    new MenuItmDto(MenuItemType.MENU, "منو ", null, new ArrayList<MenuItmDto>(Arrays.asList(
+                            new MenuItmDto(MenuItemType.PAGE, "کارتابل", new UIPageDto(null, "showTasks"), new ArrayList<MenuItmDto>()))))
+            )));
 
+
+            afterLoginInfoDto.setMenu(menuItmDto);
 
 
 
@@ -126,7 +96,7 @@ public class CustomerController {
                        new MenuItmDto(MenuItemType.PAGE, "جستجو کاربر حقوقی ", new UIPageDto(null, "searchLegal"), new ArrayList<>()),
                         new MenuItmDto(MenuItemType.PAGE, "جستجوی پیشرفته(حقوقی) ", new UIPageDto(null, "advanceLegalSearch"), new ArrayList<>())
                 ))),
-                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقیفی) ", new UIPageDto(null, "updateReal"), null),
+                new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقیقی) ", new UIPageDto(null, "updateReal"), null),
               new MenuItmDto(MenuItemType.PAGE, " ویرایش اطلاعات(مشتریان حقوقی) ", new UIPageDto(null, "updateLegal"), null),
               new MenuItmDto(MenuItemType.MENU, "ایجاد سپرده  :", null, new ArrayList<>(Arrays.asList(
                        new MenuItmDto(MenuItemType.PAGE, "سپرده کاربران حقیقی ", new UIPageDto(null, "savingAccountForReal"), new ArrayList<>()),
@@ -168,6 +138,7 @@ public class CustomerController {
 
     @RequestMapping(value = "/ws/startProcess", method = RequestMethod.POST)
     public ResponseDto startProcess(@RequestBody TaskInputDto taskInputDto) {
+
         Map<String,Object> map = new HashMap<>();
         map.put("customerNumber",taskInputDto.getCustomerNumber());
         runtimeService.startProcessInstanceByKey("FacilitiesService", map);
@@ -190,7 +161,7 @@ public class CustomerController {
         return new ResponseDto(ResponseStatus.Ok, taskDtos, null, null);
     }
 
-    @RequestMapping(value = "/ws/getUrlByFormKey", method = RequestMethod.POST)
+    @RequestMapping(value = "/pws/activiti/getUrlByFormKey", method = RequestMethod.POST)
     public ResponseDto<String> getUrlByFormKey(@RequestParam String formKey) {
 
         String url = "";
@@ -208,32 +179,52 @@ public class CustomerController {
 
     @RequestMapping(value = "/ws/managerApproveTask", method = RequestMethod.POST)
     public ResponseDto managerApproveTask(@RequestBody TaskDto taskDto) {
-        runtimeService.getVariables(taskDto.getTaskId()).put("accepted",true);
-        taskService.getVariables(taskDto.getTaskId()).put("accepted",true);
-        // Map<String,Object> map = new HashMap<>();
-        //   map.put("sanad",obj);
-        // taskService.complete(taskId, map);
-        taskService.complete(taskDto.getTaskId());
-        //taskService.setVariable(taskId,"sanad", obj);
-        return new ResponseDto<>(ResponseStatus.Ok, null, "تأیید شد.", null);
+
+        taskService.setVariable(taskDto.getTaskId(), "accepted", 1);
+
+        taskService.complete(taskDto.getTaskId() );
+
+        return new ResponseDto<>(ResponseStatus.Ok, taskDto, "تأیید شد.", null);
     }
 
     @RequestMapping (value = "ws/managerRejectTask" , method = RequestMethod.POST)
     public ResponseDto managerRejectTask (@RequestBody TaskDto taskDto){
 
-        runtimeService.getVariables(taskDto.getTaskId()).put("accepted",false);
-        taskService.getVariables(taskDto.getTaskId()).put("accepted",false);
-        return new ResponseDto<>(ResponseStatus.Ok, null, "درخواست تسهیلات توسط مدیر شعبه رد شد.", null);
+        taskDto.setFacilitySituation(FacilitySituation.REJECTED);
+
+        taskService.complete(taskDto.getTaskId() );
+
+        taskService.setVariable(taskDto.getTaskId(), "accepted", 0);
+
+
+
+        return new ResponseDto<>(ResponseStatus.Ok, taskDto, "درخواست تسهیلات توسط مدیر شعبه رد شد.", null);
     }
 
     @RequestMapping(value = "/ws/cashApproveTask", method = RequestMethod.POST)
     public ResponseDto cashApproveTask(@RequestBody TaskDto taskDto) {
-        // Map<String,Object> map = new HashMap<>();
-        //   map.put("sanad",obj);
-        // taskService.complete(taskId, map);
+
+        TransactionRequirementsDto transactionRequirementsDto = new TransactionRequirementsDto();
+
+        transactionRequirementsDto.setSavingAccountNumber(taskDto.getCustomerNumber());
+
+        transactionRequirementsDto.setAmount(taskDto.getAmount());
+
+        Object returnObj = bankingAccountFacade.deposit(transactionRequirementsDto);
+
+        if(returnObj instanceof  ResponseException)
+
+            return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
+
         taskService.complete(taskDto.getTaskId());
-        //taskService.setVariable(taskId,"sanad", obj);
-        return new ResponseDto(ResponseStatus.Ok, null, "تأیید شد.", null);
+
+        return new ResponseDto<>(ResponseStatus.Ok, null, (String)returnObj, null);
+
+
+
+
+
+
     }
 
     @RequestMapping(value = "/ws/getTaskByTaskId", method = RequestMethod.POST)
@@ -243,7 +234,7 @@ public class CustomerController {
         TaskInputDto taskInputDto = new TaskInputDto();
         taskInputDto.setTaskId(task.getId());
         Map<String, Object> taskLocalVariables = runtimeService.getVariables(task.getProcessInstanceId());
-        taskInputDto.setCustomerNumber(taskLocalVariables.get("customerNumber").toString());
+        taskInputDto.setCustomerNumber((Integer) taskLocalVariables.get("customerNumber"));
         return new ResponseDto(ResponseStatus.Ok, taskInputDto, null, null);
     }
 
@@ -368,9 +359,9 @@ public class CustomerController {
 
 
     @RequestMapping(value = "/ws/savingAccountForReal", method = RequestMethod.POST)
-    public ResponseDto savingAccountForReal(@RequestParam String nationalCode) {
+    public ResponseDto savingAccountForReal(@RequestBody RealCustomerDto realCustomerDto) {
 
-        Object returnObj = bankingAccountFacade.savingAccountForReal(nationalCode);
+        Object returnObj = bankingAccountFacade.savingAccountForReal(realCustomerDto.getNationalCode());
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
@@ -382,10 +373,11 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/ws/savingAccountForLegal", method = RequestMethod.POST)
-    public ResponseDto<RealCustomerDto> savingAccountForLegal( @RequestParam String legalCode) {
+    public ResponseDto<RealCustomerDto> savingAccountForLegal( @RequestBody LegalCustomerDto legalCustomerDto) {
 
 
-        Object returnObj = bankingAccountFacade.savingAccountForLegal(legalCode);
+        Object returnObj = bankingAccountFacade.savingAccountForLegal(legalCustomerDto.getLegalCode());
+
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
@@ -417,6 +409,7 @@ public class CustomerController {
 
         if(returnObj instanceof  ResponseException)
             return new ResponseDto<>(ResponseStatus.Error, null, null, (ResponseException) returnObj);
+
 
         return new ResponseDto<>(ResponseStatus.Ok, null, (String)returnObj, null);
 

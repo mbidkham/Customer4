@@ -16,7 +16,7 @@
         <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>
     </userTask>
-    <userTask id="sid-D05DBE9B-D3E6-4550-8C61-F9E6BA5975D2" name="CashDesk" activiti:assignee="cash" activiti:formKey="BranchManagerForm">
+    <userTask id="sid-D05DBE9B-D3E6-4550-8C61-F9E6BA5975D2" name="CashDesk" activiti:assignee="cash" activiti:formKey="CashDeskForm">
       <extensionElements>
         <modeler:initiator-can-complete xmlns:modeler="http://activiti.com/modeler"><![CDATA[false]]></modeler:initiator-can-complete>
       </extensionElements>

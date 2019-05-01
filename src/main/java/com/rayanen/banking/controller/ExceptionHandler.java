@@ -8,6 +8,7 @@ public class ExceptionHandler {
     public void handleAllExceptions (Throwable t ){
 
 
+        t.getMessage();
 
 
 

@@ -7,11 +7,11 @@
         <table label="درخواست ها " value="obj" >
             <input label="نام :" type="text" value="name" disable="true"/>
             <input label="شماره تسک :" type="text" value="taskId" disable="true"/>
-            <button label="انجام عملیات" >
-                <webService address="ws/getUrlByFormKey" value="resultObject">
-                    <webServiceInput name="formKey" ref="currentRow.formKey"/>
+            <button label="مشاهده تسك">
+                <webService value="resultObject" address="pws/activiti/getUrlByFormKey">
+                    <webServiceInput ref="currentRow.formKey" name="formKey"/>
                     <afterSuccess>
-                        <action type="page" attA="ref" attB="resultObject" attC="currentRow.taskId"/>
+                        <action type="page" attC="currentRow.taskId" attB="resultObject" attA="ref"/>
                     </afterSuccess>
                 </webService>
             </button>

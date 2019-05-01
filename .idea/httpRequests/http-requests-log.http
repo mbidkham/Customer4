@@ -1,3 +1,169 @@
+GET http://localhost:8080/ws/login?=&user=manager&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-30T070708.200.json
+
+###
+
+POST http://localhost:8080/ws/login?=&user=manager&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login?=&user=manager&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/logout?=
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/logout?=
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/getTasks?=
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-30T070459.200.json
+
+###
+
+GET http://localhost:8080/ws/getTasks?=
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+GET http://localhost:8080/ws/login?=&user=manager&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-30T070422.200.json
+
+###
+
+POST http://localhost:8080/ws/login?=&user=manager&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/startProcess?=
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{"customerNumber":"123" , "amount": 1000 ,"facilityType" : "LOAN"}
+
+<> 2019-04-30T070408.200.json
+
+###
+
+GET http://localhost:8080/ws/login?=&user=credit&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-30T070333.200.json
+
+###
+
+POST http://localhost:8080/ws/login?=&user=credit&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/getTasks?=
+Accept: */*
+Cache-Control: no-cache
+
+{"customerNumber":"123" , "amount": 1000 ,"facilityType" : "LOAN"}
+
+<> 2019-04-30T070242.200.json
+
+###
+
+GET http://localhost:8080/ws/login?=&user=manager&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+{"customerNumber":"123" , "amount": 1000 ,"facilityType" : "LOAN"}
+
+<> 2019-04-30T070158.200.json
+
+###
+
+POST http://localhost:8080/ws/login?=&user=manager&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+{"customerNumber":"123" , "amount": 1000 ,"facilityType" : "LOAN"}
+
+###
+
+POST http://localhost:8080/ws/startProcess?=
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{"customerNumber":"123" , "amount": 1000 ,"facilityType" : "LOAN"}
+
+<> 2019-04-30T070119.200.json
+
+###
+
+GET http://localhost:8080/ws/login?=
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-30T070104.200.json
+
+###
+
+POST http://localhost:8080/ws/login?=&user=credit&pass=1
+Accept: */*
+Cache-Control: no-cache
+
+###
+
+POST http://localhost:8080/ws/getTasks?=
+Accept: */*
+Cache-Control: no-cache
+
+<> 2019-04-30T070002.200.json
+
+###
+
+POST http://localhost:8080/ws/startProcess?=
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{"customerNumber":"123" , "amount": 1000 ,"facilityType" : "LOAN"}
+
+<> 2019-04-30T065915.200.json
+
+###
+
+POST http://localhost:8080/ws/startProcess?=
+Accept: */*
+Cache-Control: no-cache
+Content-Type: application/json
+
+{"customerNumber":"123" , "amount": 1000 ,"facilityType" : "LOAN"}
+
+###
+
 POST http://localhost:8080/ws/updateReal?=
 Accept: */*
 Cache-Control: no-cache
@@ -289,221 +455,4 @@ Cache-Control: no-cache
 { "sourceAccount":7621 ,"destinationAccount":1151 ,"amount":2000}
 
 <> 2019-04-29T062042.200.json
-
-###
-
-POST http://localhost:8080/ws/withdrawal
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{ "savingAccountNumber":8931 , "amount":1000}
-
-<> 2019-04-29T062032.200.json
-
-###
-
-POST http://localhost:8080/ws/savingAccountForReal?nationalCode=134
-Accept: */*
-Cache-Control: no-cache
-
-{"id":1,"name":"mehrane9898","version":0,"address":null,"savingAccounts":[],"lastName":null,"nationalCode":"12234","contact":{"id":2,"version":0,"email":"a@y","phones":[{"id":3,"version":0,"number":"33333","type":"MOBILE"},{"id":4,"version":0,"number":"0912","type":"MOBILE"}]}}
-
-<> 2019-04-29T062014.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "hjfjhmehranehbidkhamjjkcs", "nationalCode": "134" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" },{      "number": "0912","type": "MOBILE" }] }  }
-
-<> 2019-04-29T061959.200.json
-
-###
-
-POST http://localhost:8080/ws/searchByAccountNumber?=&accountNumber=6151
-Accept: */*
-Cache-Control: no-cache
-
-{ "sourceAccount":7621 ,"destinationAccount":1151 ,"amount":2000}
-
-<> 2019-04-29T061859.200.json
-
-###
-
-POST http://localhost:8080/ws/withdrawal
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{ "savingAccountNumber":6151 , "amount":1000}
-
-<> 2019-04-29T061844.200.json
-
-###
-
-POST http://localhost:8080/ws/savingAccountForReal?nationalCode=134
-Accept: */*
-Cache-Control: no-cache
-
-{"id":1,"name":"mehrane9898","version":0,"address":null,"savingAccounts":[],"lastName":null,"nationalCode":"12234","contact":{"id":2,"version":0,"email":"a@y","phones":[{"id":3,"version":0,"number":"33333","type":"MOBILE"},{"id":4,"version":0,"number":"0912","type":"MOBILE"}]}}
-
-<> 2019-04-29T061828.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "hjfjhmehranehbidkhamjjkcs", "nationalCode": "134" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" },{      "number": "0912","type": "MOBILE" }] }  }
-
-<> 2019-04-29T061819.200.json
-
-###
-
-POST http://localhost:8080/ws/searchByAccountNumber?=&accountNumber=3511
-Accept: */*
-Cache-Control: no-cache
-
-{ "sourceAccount":7621 ,"destinationAccount":1151 ,"amount":2000}
-
-<> 2019-04-29T061748.200.json
-
-###
-
-POST http://localhost:8080/ws/searchByAccountNumber?=&accountNumber=3511
-Accept: */*
-Cache-Control: no-cache
-
-{ "sourceAccount":7621 ,"destinationAccount":1151 ,"amount":2000}
-
-<> 2019-04-29T061320.200.json
-
-###
-
-POST http://localhost:8080/ws/searchByAccountNumber?=&accountNumber=3511
-Accept: */*
-Cache-Control: no-cache
-
-{ "sourceAccount":7621 ,"destinationAccount":1151 ,"amount":2000}
-
-<> 2019-04-29T060842.200.json
-
-###
-
-POST http://localhost:8080/ws/withdrawal
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{ "savingAccountNumber":3511 , "amount":1000}
-
-<> 2019-04-29T060648.200.json
-
-###
-
-POST http://localhost:8080/ws/savingAccountForReal?nationalCode=134
-Accept: */*
-Cache-Control: no-cache
-
-{"id":1,"name":"mehrane9898","version":0,"address":null,"savingAccounts":[],"lastName":null,"nationalCode":"12234","contact":{"id":2,"version":0,"email":"a@y","phones":[{"id":3,"version":0,"number":"33333","type":"MOBILE"},{"id":4,"version":0,"number":"0912","type":"MOBILE"}]}}
-
-<> 2019-04-29T060631.200.json
-
-###
-
-POST http://localhost:8080/ws/saveRealCustomer
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{   "name": "hjfjhmehranehbidkhamjjkcs", "nationalCode": "134" , "contact": {"email": "a@y" ,  "phones": [ {      "number": "33333","type": "MOBILE" },{      "number": "0912","type": "MOBILE" }] }  }
-
-<> 2019-04-29T060611.200.json
-
-###
-
-POST http://localhost:8080/ws/searchByAccountNumber?=&accountNumber=5427
-Accept: */*
-Cache-Control: no-cache
-
-{ "sourceAccount":7621 ,"destinationAccount":1151 ,"amount":2000}
-
-<> 2019-04-29T060332.200.json
-
-###
-
-POST http://localhost:8080/ws/updateReal?=
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{"id":1,"name":"mehrroon","version":2,"address":null,"savingAccounts":[{"id":5,"version":1,"transactions":[{"id":11,"version":0,"amount":2000.00,"transactionDate":"2019-04-29T13:25:34.366+0000","transactionType":"TRANSFER"}],"accountNumber":7411,"balance":3000.00,"minBalance":3000.00,"sumOfMinBalances":0.00,"monthlyProfit":0.00},{"id":6,"version":1,"transactions":[{"id":10,"version":0,"amount":2000.00,"transactionDate":"2019-04-29T13:25:34.366+0000","transactionType":"TRANSFER"}],"accountNumber":6131,"balance":7000.00,"minBalance":5000.00,"sumOfMinBalances":0.00,"monthlyProfit":0.00}],"lastName":null,"nationalCode":"134","contact":{"id":2,"version":0,"email":"a@y","phones":[{"id":3,"version":0,"number":"33333","type":"MOBILE"},{"id":4,"version":0,"number":"0912","type":"MOBILE"}]}}
-
-###
-
-POST http://localhost:8080/ws/searchReal?=&nationalCode=134
-Accept: */*
-Cache-Control: no-cache
-
-{ "sourceAccount":7621 ,"destinationAccount":1151 ,"amount":2000}
-
-<> 2019-04-29T055826.200.json
-
-###
-
-POST http://localhost:8080/ws/searchByAccountNumber?=&accountNumber=5427
-Accept: */*
-Cache-Control: no-cache
-
-{ "sourceAccount":7621 ,"destinationAccount":1151 ,"amount":2000}
-
-<> 2019-04-29T055645.200.json
-
-###
-
-POST http://localhost:8080/ws/transferMoney
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{ "sourceAccount":8357 ,"destinationAccount":5427 ,"amount":2000}
-
-<> 2019-04-29T055557.200.json
-
-###
-
-POST http://localhost:8080/ws/transferMoney
-Accept: */*
-Cache-Control: no-cache
-Content-Type: application/json
-
-{ "sourceAccount":7411 ,"destinationAccount":6131 ,"amount":2000}
-
-<> 2019-04-29T055534.200.json
-
-###
-
-POST http://localhost:8080/ws/savingAccountForLegal?legalCode=134
-Accept: */*
-Cache-Control: no-cache
-
-{"id":1,"name":"mehrane9898","version":0,"address":null,"savingAccounts":[],"lastName":null,"legalCode":"12234"}
-
-<> 2019-04-29T055405.200.json
-
-###
-
-POST http://localhost:8080/ws/savingAccountForLegal?legalCode=134
-Accept: */*
-Cache-Control: no-cache
-
-{"id":1,"name":"mehrane9898","version":0,"address":null,"savingAccounts":[],"lastName":null,"legalCode":"12234"}
-
-<> 2019-04-29T055355.200.json
 
